@@ -3,11 +3,11 @@
 %define libname %mklibname %name %major
 %define libnamegrass %mklibname %{name}grass %major
 %define __libtoolize /bin/true
-%define release %mkrel 5
+%define release %mkrel 6
 %{!?grass:%global grass grass62}
 %define _requires_exceptions devel\(lib.*qgsprojectionselector.*\)
 
-Name:         	qgis
+Name:   	qgis
 Version: 	0.8.0
 Release:	%release
 License:	GPL
@@ -18,11 +18,12 @@ Summary:	Quantum GIS is a Geographic Information System for Linux/Unix
 BuildRequires:	qt4-devel grass gdal-devel cfitsio-devel ImageMagick
 BuildRequires:	flex netcdf-devel qt4-linguist
 Requires:	%{libname} = %{version}-%{release}
-BuildRoot:      %{_tmppath}/%{name}-%{version}-root
-Patch:		qgis-0.7.4-gcc41.patch
-Patch1:		qgis-0.7.4-gcc41-2.patch
-Patch2:		qgis-0.8-python2.5.patch
-Patch3:		qgis-fix-lib64-grass-link-path.patch
+BuildRoot:	%{_tmppath}/%{name}-%{version}-root
+Patch0: 	qgis-0.7.4-gcc41.patch
+Patch1: 	qgis-0.7.4-gcc41-2.patch
+Patch2: 	qgis-0.8-python2.5.patch
+Patch3: 	qgis-fix-lib64-grass-link-path.patch
+Patch4: 	qgis-0.8.0-qt4.3_buildfix.patch	
 
 %description
 Quantum GIS (QGIS) is designed to be a Geographic Information System (GIS) 
@@ -70,10 +71,11 @@ within QGIS.
 
 %prep
 %setup -q
-#patch -p1 -b .gcc41
+#patch0 -p1 -b .gcc41
 #patch1 -b .gcc41-2
 %patch2 -p1 -b .python25
 %patch3 -p0 -b .fix-lib64-grass-link-path
+%patch4 -p1 -b .qt4.3_buildfix
 automake
 autoconf
 
@@ -81,7 +83,8 @@ autoconf
 export QTDIR=%{_prefix}/lib/qt4
 export PATH="$PATH:%{_libdir}/qt4/bin"
 export GISLIB=%{_libdir}/%{grass}/lib/libgrass_gis.so
-%configure --with-grass=%{_libdir}/%{grass} --with-qtdir=$QTDIR \
+%configure --with-grass=%{_libdir}/%{grass} \
+           --with-qtdir=$QTDIR
 #--with-python
 make
 #strip src/qgis
