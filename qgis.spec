@@ -16,9 +16,16 @@ BuildRequires: qt4-devel
 BuildRequires: qt4-linguist
 BuildRequires: grass 
 BuildRequires: gdal-devel 
+BuildRequires: geos-devel
+BuildRequires: proj-devel
+BuildRequires: expat-devel
+BuildRequires: gsl-devel
 BuildRequires: cfitsio-devel 
 BuildRequires: ImageMagick
 BuildRequires: flex 
+BuildRequires: byacc
+BuildRequires: mlocate
+BuildRequires: postgresql-devel
 BuildRequires: netcdf-devel
 %py_requires -d
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
