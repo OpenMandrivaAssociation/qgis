@@ -127,7 +127,6 @@ within QGIS.
 %exclude %{_libdir}/*%{name}grass.so
 %{_libdir}/%{name}/*grass*.so
 %{_libdir}/*%{name}grass.la
-%exclude %{_libdir}/*%{name}grass.a
 
 #---------------------------------------------------------
 
@@ -172,7 +171,7 @@ aclocal && libtoolize -c -f && autoheader && automake -a -c && autoconf
     --with-python \
     --disable-static
 
-%make
+make
 
 %install
 rm -rf $RPM_BUILD_ROOT
