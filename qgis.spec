@@ -24,6 +24,7 @@ BuildRequires: cfitsio-devel
 BuildRequires: ImageMagick
 BuildRequires: flex 
 BuildRequires: byacc
+BuildRequires: bison
 BuildRequires: mlocate
 BuildRequires: postgresql-devel
 BuildRequires: netcdf-devel
