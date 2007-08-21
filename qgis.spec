@@ -1,5 +1,6 @@
 %{!?grass:%global grass grass62}
 %define _requires_exceptions devel\(lib.*qgsprojectionselector.*\)
+%global build_msexport 0
 
 Name: qgis
 Version: 0.8.1
@@ -131,7 +132,7 @@ within QGIS.
 #---------------------------------------------------------
 
 %define libmsexport %mklibname msexport 1
-
+%if %build_msexport
 %package -n %libmsexport
 Summary: QGIS export library
 License: GPL
@@ -148,6 +149,7 @@ Summary: QGIS export library
 %defattr(-,root,root,-)
 %_bindir/msexport
 %_libdir/libmsexport.so.*
+%endif
 
 #---------------------------------------------------------
 
