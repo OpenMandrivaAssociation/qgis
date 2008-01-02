@@ -30,6 +30,7 @@ BuildRequires: mlocate
 BuildRequires: postgresql-devel
 BuildRequires: netcdf-devel
 %py_requires -d
+BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
 Quantum GIS (QGIS) is designed to be a Geographic Information System (GIS) 
