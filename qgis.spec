@@ -3,7 +3,7 @@
 %global build_msexport 0
 
 Name: qgis
-Version: 0.8.1
+Version: 0.9.1
 Release: %mkrel 1
 Summary: Quantum GIS is a Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
