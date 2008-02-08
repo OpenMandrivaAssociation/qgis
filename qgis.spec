@@ -1,6 +1,8 @@
-%{!?grass:%global grass grass62}
-%define _requires_exceptions devel\(lib.*qgsprojectionselector.*\)
-%global build_msexport 0
+%define libmsexport %mklibname msexport 1
+%define libnamegrass %mklibname %{name}grass 0
+%define libqgis %mklibname qgis 0
+
+%define _requires_exceptions .*libgrass_.*
 
 Name: qgis
 Version: 0.9.1
@@ -8,13 +10,13 @@ Release: %mkrel 1
 Summary: Quantum GIS is a Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://qgis.sourceforge.net/
-Source:		http://prdownloads.sourceforge.net/qgis/%{name}-%{version}.tar.gz
-Patch0: qgis-0.8-python2.5.patch
-Patch1: qgis-fix-lib64-grass-link-path.patch
-Patch2: qgis-0.8.0-qt4.3_buildfix.patch	
+Source:	http://prdownloads.sourceforge.net/qgis/%{name}_%{version}.tar.gz
 License: GPL
+Obsoletes: %{libqgis}
+Obsoletes: %{libmsexport}
 BuildRequires: qt4-devel 
 BuildRequires: qt4-linguist
+BuildRequires: cmake
 BuildRequires: grass 
 BuildRequires: gdal-devel 
 BuildRequires: geos-devel
@@ -24,11 +26,13 @@ BuildRequires: gsl-devel
 BuildRequires: cfitsio-devel 
 BuildRequires: ImageMagick
 BuildRequires: flex 
-BuildRequires: byacc
 BuildRequires: bison
 BuildRequires: mlocate
 BuildRequires: postgresql-devel
+BuildRequires: postgis-devel
 BuildRequires: netcdf-devel
+BuildRequires: python-sip
+BuildRequires: python-qt4
 %py_requires -d
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
@@ -56,130 +60,73 @@ Planned features include:
 
 %files
 %defattr(-,root,root)
-%{_bindir}/%{name}
-%{_bindir}/%{name}_help
+%{_bindir}/*
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/*.so
 %{_datadir}/%{name}
 %{_datadir}/applications/mandriva-%{name}.desktop
 %{_mandir}/man1/*
+# Shared libs. No more devel libs
+%{_libdir}/*.so
 %doc AUTHORS BUGS COPYING ChangeLog INSTALL README TODO
 %exclude %{_libdir}/%{name}/*grass*.so
+%exclude %_datadir/qgis/grass
+%exclude %_libdir/libqgisgrass.so
 
 #---------------------------------------------------------
 
-%define major	0
-%define libname %mklibname %name %major
+%package devel
+Summary: Development libraries and headers for QGIS
+License: GPL
+Group: Sciences/Geosciences
+Requires: qgis
+Obsoletes: %{_lib}qgis-devel
 
-%package -n %{libname}
-Summary:	Library package for QGIS
-License:	GPL
-Group:		Sciences/Geosciences
+%description devel
+Development headers for QGIS
 
-%description -n %{libname}
-Library package for QGIS
-
-%post -n %{libname} -p /sbin/ldconfig
-%postun -n %{libname} -p /sbin/ldconfig
-
-%files -n %{libname}
+%files devel
 %defattr(-,root,root)
-%{_libdir}/*%{name}_*.so.*
-%{_libdir}/%{name}/libqgsprojectionselector.so
+%{_includedir}/*
 
 #---------------------------------------------------------
 
-%package -n %{libname}-devel
-Summary:	Development libraries and headers for QGIS
-License:	GPL
-Group:		Sciences/Geosciences
-Requires:	%{libname} = %{version}-%{release}
-Provides:	%{name}-devel = %{version}-%{release}
-Provides:	lib%{name}-devel = %{version}-%{release}
+%package grass
+Summary: QGIS plugins for accessing GRASS data
+License: GPL
+Group: Sciences/Geosciences
+Obsoletes: %{libnamegrass}
+Requires: grass
 
-%description -n %{libname}-devel
-Development libraries and headers for QGIS
-
-%files -n %{libname}-devel
-%defattr(-,root,root)
-%{_bindir}/%{name}-config
-%{_libdir}/*.so
-%{_libdir}/*.la
-%{_libdir}/%{name}/*.la
-%{_includedir}/%{name}
-%{_datadir}/aclocal/%{name}.m4
-
-#---------------------------------------------------------
-
-%define libnamegrass %mklibname %{name}grass %major
-
-%package -n %{libnamegrass}
-Summary:	QGIS plugins for accessing GRASS data
-License:	GPL
-Group:		Sciences/Geosciences
-
-%description -n %{libnamegrass}
+%description grass
 This package provides plugins for QGIS that provide access to GRASS data from
 within QGIS.
 
-%files -n %{libnamegrass}
+%files grass
 %defattr(-,root,root)
-%{_libdir}/*%{name}grass.so.*
-%exclude %{_libdir}/*%{name}grass.so
 %{_libdir}/%{name}/*grass*.so
-%{_libdir}/*%{name}grass.la
-
-#---------------------------------------------------------
-
-%define libmsexport %mklibname msexport 1
-%if %build_msexport
-%package -n %libmsexport
-Summary: QGIS export library
-License: GPL
-Group: Sciences/Geosciences
-Provides: msexport
-
-%description -n %libmsexport
-Summary: QGIS export library
-
-%post -n %libmsexport -p /sbin/ldconfig
-%postun -n %libmsexport -p /sbin/ldconfig
-
-%files -n %libmsexport
-%defattr(-,root,root,-)
-%_bindir/msexport
-%_libdir/libmsexport.so.*
-%endif
+%_datadir/qgis/grass
+%_libdir/libqgisgrass.so
 
 #---------------------------------------------------------
 
 %prep
-%setup -q
-%patch0 -p1 -b .python25
-%patch1 -p0 -b .fix-lib64-grass-link-path
-%patch2 -p1 -b .qt4.3_buildfix
+%setup -q -n %{name}_%{version}
 
 %build
-export QTDIR=%{qt4dir}
-export PATH=%{qt4dir}/bin:${PATH}
-export PKG_CONFIG_PATH=%{qt4lib}/pkgconfig
-export GISLIB=%{_libdir}/%{grass}/lib/libgrass_gis.so
 
-aclocal && libtoolize -c -f && autoheader && automake -a -c && autoconf
+%cmake_qt4 \
+	-DQGIS_LIB_SUBDIR=%_lib \
+	-DQGIS_PLUGIN_SUBDIR=%_lib/qgis \
+	-DGRASS_PREFIX=%_libdir/grass62 
 
-%configure  \
-    --with-grass=%{_libdir}/%{grass} \
-    --with-qtdir=%{qt4dir} \
-    --with-python \
-    --disable-static
-
-make
+%make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%makeinstall_std
+rm -rf %buildroot
+make -C build DESTDIR=%buildroot install
 
-find %{buildroot} -size 0 -exec rm -f {} \;
+mv %buildroot/%_prefix/man %buildroot/%_datadir
 
 mkdir -p %{buildroot}/%{_datadir}/applications
 cat > %{buildroot}/%{_datadir}/applications/mandriva-%{name}.desktop << EOF
@@ -192,9 +139,6 @@ Terminal=false
 Type=Application
 Categories=X-MandrivaLinux-MoreApplications-Sciences-Geosciences;Science;
 EOF
-
-sed -i -e "s,-L`pwd`/providers/grass ,,g" %{buildroot}/%{_libdir}/%{name}/grassplugin.la
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
