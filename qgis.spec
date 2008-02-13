@@ -6,7 +6,7 @@
 
 Name: qgis
 Version: 0.9.1
-Release: %mkrel 1
+Release: %mkrel 2
 Summary: Quantum GIS is a Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://qgis.sourceforge.net/
@@ -14,8 +14,10 @@ Source:	http://prdownloads.sourceforge.net/qgis/%{name}_%{version}.tar.gz
 License: GPL
 Obsoletes: %{libqgis}
 Obsoletes: %{libmsexport}
-BuildRequires: qt4-devel 
-BuildRequires: qt4-linguist
+Requires: python-sip
+Requires: python-qt4
+Requires: python-BioSQL
+Requires: postgis
 BuildRequires: cmake
 BuildRequires: grass 
 BuildRequires: gdal-devel 
@@ -31,8 +33,11 @@ BuildRequires: mlocate
 BuildRequires: postgresql-devel
 BuildRequires: postgis-devel
 BuildRequires: netcdf-devel
+BuildRequires: qt4-devel 
+BuildRequires: qt4-linguist
 BuildRequires: python-sip
 BuildRequires: python-qt4
+BuildRequires: python-BioSQL
 %py_requires -d
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
