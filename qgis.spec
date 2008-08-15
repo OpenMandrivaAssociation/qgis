@@ -9,8 +9,8 @@ Version: 0.9.1
 Release: %mkrel 6
 Summary: Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
-URL: http://qgis.sourceforge.net/
-Source:	http://prdownloads.sourceforge.net/qgis/%{name}_%{version}.tar.gz
+URL: http://www.qgis.org/
+Source:	http://download.osgeo.org/qgis/src/qgis_%{version}.tar.gz
 License: GPL
 Obsoletes: %{libqgis}
 Obsoletes: %{libmsexport}
