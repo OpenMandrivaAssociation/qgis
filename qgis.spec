@@ -5,17 +5,15 @@
 %define _requires_exceptions .*libgrass_.*
 
 Name: qgis
-Version: 0.9.1
-Release: %mkrel 6
+Version: 0.11.0
+Release: %mkrel 1
 Summary: Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://www.qgis.org/
 Source:	http://download.osgeo.org/qgis/src/qgis_%{version}.tar.gz
-License: GPL
+License: GPLv2+
 Obsoletes: %{libqgis}
 Obsoletes: %{libmsexport}
-Requires: python-sip
-Requires: python-qt4
 Requires: python-BioSQL
 Requires: postgis
 BuildRequires: cmake
@@ -69,43 +67,68 @@ Planned features include:
 
 %files
 %defattr(-,root,root)
-%{_bindir}/*
+%{_bindir}/%{name}
+%{_bindir}/%{name}_help
+%{_libdir}/lib%{name}_*.so.*
 %dir %{_libdir}/%{name}
-%{_libdir}/%{name}/*.so
-%{_datadir}/%{name}
+%{_libdir}/%{name}/libcopyrightlabelplugin.so
+%{_libdir}/%{name}/libdelimitedtextplugin.so
+%{_libdir}/%{name}/libdelimitedtextprovider.so
+%{_libdir}/%{name}/libgeorefplugin.so
+%{_libdir}/%{name}/libgpsimporterplugin.so
+%{_libdir}/%{name}/libgpxprovider.so
+%{_libdir}/%{name}/libgridmakerplugin.so
+%{_libdir}/%{name}/libmemoryprovider.so
+%{_libdir}/%{name}/libnortharrowplugin.so
+%{_libdir}/%{name}/libogrprovider.so
+%{_libdir}/%{name}/libpggeoprocessingplugin.so
+%{_libdir}/%{name}/libpostgresprovider.so
+%{_libdir}/%{name}/libquickprintplugin.so
+%{_libdir}/%{name}/libscalebarplugin.so
+%{_libdir}/%{name}/libspitplugin.so
+%{_libdir}/%{name}/libwfsplugin.so
+%{_libdir}/%{name}/libwfsprovider.so
+%{_libdir}/%{name}/libwmsprovider.so
+%{_datadir}/%{name}/doc
 %{_datadir}/applications/mandriva-%{name}.desktop
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/i18n
+%{_datadir}/%{name}/images
+%{_datadir}/%{name}/resources
+%{_datadir}/%{name}/svg
+%dir %{_datadir}/%{name}/themes
+%dir %{_datadir}/%{name}/themes/default
+%{_datadir}/%{name}/themes/default/*.png
 %{_mandir}/man1/*
-# Shared libs. No more devel libs
-%{_libdir}/*.so
-%doc AUTHORS BUGS COPYING ChangeLog INSTALL README TODO
-%exclude %{_libdir}/%{name}/*grass*.so
-%exclude %_datadir/qgis/grass
-%exclude %_libdir/libqgisgrass.so
+%doc AUTHORS BUGS ChangeLog README TODO
 
 #---------------------------------------------------------
 
 %package devel
 Summary: Development libraries and headers for QGIS
-License: GPL
 Group: Sciences/Geosciences
 Requires: qgis
 Obsoletes: %{_lib}qgis-devel
-
+Conflicts: qgis < 0.11.0
+Conflicts: qgiss-grass < 0.11.0
 %description devel
 Development headers for QGIS
 
 %files devel
 %defattr(-,root,root)
 %{_includedir}/*
+%{_libdir}/lib%{name}_*.so
+%{_libdir}/libqgisgrass.so
+%{_libdir}/libqgispython.so
 
 #---------------------------------------------------------
 
 %package grass
 Summary: QGIS plugins for accessing GRASS data
-License: GPL
 Group: Sciences/Geosciences
 Obsoletes: %{libnamegrass}
 Requires: grass
+Conflicts: qgis < 0.11.0
 
 %description grass
 This package provides plugins for QGIS that provide access to GRASS data from
@@ -113,9 +136,43 @@ within QGIS.
 
 %files grass
 %defattr(-,root,root)
-%{_libdir}/%{name}/*grass*.so
-%_datadir/qgis/grass
-%_libdir/libqgisgrass.so
+%{_libdir}/libqgisgrass.so.*
+%{_libdir}/%{name}/libgrass*.so
+%{_datadir}/%{name}/grass
+%{_datadir}/%{name}/themes/default/grass
+
+#---------------------------------------------------------
+
+%package python
+Summary: Python integration and plugins for qgis
+Group: Sciences/Geosciences
+Requires: %{name} = %{version}-%{release}
+Requires: python-sip
+Requires: python-qt4
+Conflicts: qgis < 0.11.0
+
+%description python
+Python integration and plugins for qgis
+
+%files python
+%defattr(-,root,root)
+%{_libdir}/libqgispython.so.*
+%{_datadir}/%{name}/python
+
+#---------------------------------------------------------
+
+%package theme-nkids
+Summary: Addtional theme for qgis - nkids
+Group: Sciences/Geosciences
+Requires: %{name} = %{version}-%{release}
+Conflicts: qgis < 0.11.0
+
+%description theme-nkids
+Addtional theme for qgis - nkids
+
+%files theme-nkids
+%defattr(-, root, root, -)
+%{_datadir}/%{name}/themes/nkids
 
 #---------------------------------------------------------
 
@@ -142,14 +199,14 @@ cat > %{buildroot}/%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Quantum GIS
 Comment=Quantum Geographic Information System
-Exec=LD_LIBRARY_PATH=%{_libdir}/%{grass}/lib GISBASE=%{_libdir}/%{grass} %{_bindir}/%{name}
+Exec=LD_LIBRARY_PATH=%{_libdir}/%{name}/lib GISBASE=%{_libdir}/%{name} %{_bindir}/%{name}
 Icon=%{name}
 Terminal=false
 Type=Application
-Categories=X-MandrivaLinux-MoreApplications-Sciences-Geosciences;Science;
+Categories=Science;Geoscience;
 EOF
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 
