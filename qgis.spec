@@ -1,6 +1,7 @@
 %define libmsexport %mklibname msexport 1
 %define libnamegrass %mklibname %{name}grass 0
 %define libqgis %mklibname qgis 0
+%define grass grass62
 
 %define _requires_exceptions .*libgrass_.*
 
@@ -186,7 +187,7 @@ Addtional theme for qgis - nkids
 %cmake_qt4 \
 	-DQGIS_LIB_SUBDIR=%{_lib} \
 	-DQGIS_PLUGIN_SUBDIR=%{_lib}/qgis \
-	-DGRASS_PREFIX=%{_libdir}/grass62 
+	-DGRASS_PREFIX=%{_libdir}/%{grass}
 
 %make
 
@@ -201,7 +202,7 @@ cat > %{buildroot}/%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Quantum GIS
 Comment=Quantum Geographic Information System
-Exec=LD_LIBRARY_PATH=%{_libdir}/%{name}/lib GISBASE=%{_libdir}/%{name} %{_bindir}/%{name}
+Exec=LD_LIBRARY_PATH=%{_libdir}/%{grass}/lib GISBASE=%{_libdir}/%{grass} %{_bindir}/%{name}
 Icon=%{name}
 Terminal=false
 Type=Application
