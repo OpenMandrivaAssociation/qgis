@@ -36,6 +36,7 @@ BuildRequires: qt4-linguist
 BuildRequires: python-sip
 BuildRequires: python-qt4
 BuildRequires: python-BioSQL
+BuildRequires: imagemagick
 %py_requires -d
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
@@ -100,6 +101,7 @@ Planned features include:
 %dir %{_datadir}/%{name}/themes/default
 %{_datadir}/%{name}/themes/default/*.png
 %{_mandir}/man1/*
+%{_iconsdir}/hicolor/*/apps/*
 %doc AUTHORS BUGS ChangeLog README TODO
 
 #---------------------------------------------------------
@@ -182,17 +184,17 @@ Addtional theme for qgis - nkids
 %build
 
 %cmake_qt4 \
-	-DQGIS_LIB_SUBDIR=%_lib \
-	-DQGIS_PLUGIN_SUBDIR=%_lib/qgis \
-	-DGRASS_PREFIX=%_libdir/grass62 
+	-DQGIS_LIB_SUBDIR=%{_lib} \
+	-DQGIS_PLUGIN_SUBDIR=%{_lib}/qgis \
+	-DGRASS_PREFIX=%{_libdir}/grass62 
 
 %make
 
 %install
-rm -rf %buildroot
-make -C build DESTDIR=%buildroot install
+rm -rf %{buildroot}
+make -C build DESTDIR=%{buildroot} install
 
-mv %buildroot/%_prefix/man %buildroot/%_datadir
+mv %{buildroot}/%{_prefix}/man %{buildroot}/%{_datadir}
 
 mkdir -p %{buildroot}/%{_datadir}/applications
 cat > %{buildroot}/%{_datadir}/applications/mandriva-%{name}.desktop << EOF
@@ -205,6 +207,12 @@ Terminal=false
 Type=Application
 Categories=Science;Geoscience;
 EOF
+
+# icon
+mkdir -p %{buildroot}%{_iconsdir}/hicolor/{48x48,32x32,16x16}/apps
+convert -scale 48 %{buildroot}%{_datadir}/%{name}/doc/images/qgis_new_80pct.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png
+convert -scale 32 %{buildroot}%{_datadir}/%{name}/doc/images/qgis_new_80pct.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
+convert -scale 16 %{buildroot}%{_datadir}/%{name}/doc/images/qgis_new_80pct.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png
 
 %clean
 rm -rf %{buildroot}
