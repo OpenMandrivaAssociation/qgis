@@ -25,7 +25,7 @@ BuildRequires: proj-devel
 BuildRequires: expat-devel
 BuildRequires: gsl-devel
 BuildRequires: cfitsio-devel 
-BuildRequires: ImageMagick
+BuildRequires: imagemagick
 BuildRequires: flex 
 BuildRequires: bison
 BuildRequires: mlocate
