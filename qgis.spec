@@ -1,13 +1,13 @@
 %define libmsexport %mklibname msexport 1
 %define libnamegrass %mklibname %{name}grass 0
 %define libqgis %mklibname qgis 0
-%define grass grass62
+%define grass grass64
 
 %define _requires_exceptions .*libgrass_.*
 
 Name: qgis
-Version: 0.11.0
-Release: %mkrel 2
+Version: 1.0.0
+Release: %mkrel 1
 Summary: Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://www.qgis.org/
