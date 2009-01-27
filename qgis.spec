@@ -12,6 +12,9 @@ Summary: Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://www.qgis.org/
 Source:	http://download.osgeo.org/qgis/src/qgis_%{version}.tar.gz
+Patch0: qgis_1.0.0-fix-str-fmt.patch
+Patch1: qgis_1.0.0-manpage-name.patch
+Patch2: qgis_1.0.0-linkage.patch
 License: GPLv2+
 Obsoletes: %{libqgis}
 Obsoletes: %{libmsexport}
@@ -73,17 +76,20 @@ Planned features include:
 %{_bindir}/%{name}_help
 %{_libdir}/lib%{name}_*.so.*
 %dir %{_libdir}/%{name}
+%{_libdir}/%{name}/libcoordinatecaptureplugin.so
 %{_libdir}/%{name}/libcopyrightlabelplugin.so
 %{_libdir}/%{name}/libdelimitedtextplugin.so
 %{_libdir}/%{name}/libdelimitedtextprovider.so
+%{_libdir}/%{name}/libdxf2shpconverterplugin.so
 %{_libdir}/%{name}/libgeorefplugin.so
 %{_libdir}/%{name}/libgpsimporterplugin.so
 %{_libdir}/%{name}/libgpxprovider.so
 %{_libdir}/%{name}/libgridmakerplugin.so
+%{_libdir}/%{name}/libinterpolationplugin.so
 %{_libdir}/%{name}/libmemoryprovider.so
 %{_libdir}/%{name}/libnortharrowplugin.so
+%{_libdir}/%{name}/libogrconverterplugin.so
 %{_libdir}/%{name}/libogrprovider.so
-%{_libdir}/%{name}/libpggeoprocessingplugin.so
 %{_libdir}/%{name}/libpostgresprovider.so
 %{_libdir}/%{name}/libquickprintplugin.so
 %{_libdir}/%{name}/libscalebarplugin.so
@@ -98,10 +104,10 @@ Planned features include:
 %{_datadir}/%{name}/images
 %{_datadir}/%{name}/resources
 %{_datadir}/%{name}/svg
-%dir %{_datadir}/%{name}/themes
-%dir %{_datadir}/%{name}/themes/default
-%{_datadir}/%{name}/themes/default/*.png
+%{_datadir}/%{name}/themes
 %{_mandir}/man1/*
+%exclude %{_datadir}/%{name}/themes/default/grass
+%exclude %{_datadir}/%{name}/themes/classic/grass
 %{_iconsdir}/hicolor/*/apps/*
 %doc AUTHORS BUGS ChangeLog README TODO
 
@@ -143,6 +149,7 @@ within QGIS.
 %{_libdir}/%{name}/libgrass*.so
 %{_datadir}/%{name}/grass
 %{_datadir}/%{name}/themes/default/grass
+%{_datadir}/%{name}/themes/classic/grass
 
 #---------------------------------------------------------
 
@@ -181,6 +188,9 @@ Addtional theme for qgis - nkids
 
 %prep
 %setup -q -n %{name}_%{version}
+%patch0 -p0
+%patch1 -p0
+%patch2 -p0 -b .link
 
 %build
 
