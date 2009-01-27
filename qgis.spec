@@ -7,7 +7,7 @@
 
 Name: qgis
 Version: 1.0.0
-Release: %mkrel 2
+Release: %mkrel 3
 Summary: Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://www.qgis.org/
@@ -108,6 +108,8 @@ Planned features include:
 %{_mandir}/man1/*
 %exclude %{_datadir}/%{name}/themes/default/grass
 %exclude %{_datadir}/%{name}/themes/classic/grass
+%exclude %{_datadir}/%{name}/themes/gis
+%exclude %{_datadir}/%{name}/themes/nkids
 %{_iconsdir}/hicolor/*/apps/*
 %doc AUTHORS BUGS ChangeLog README TODO
 
@@ -175,7 +177,7 @@ Python integration and plugins for qgis
 Summary: Addtional theme for qgis - nkids
 Group: Sciences/Geosciences
 Requires: %{name} = %{version}-%{release}
-Conflicts: qgis < 0.11.0
+Conflicts: qgis < 1.0.0-3
 
 %description theme-nkids
 Addtional theme for qgis - nkids
@@ -183,6 +185,21 @@ Addtional theme for qgis - nkids
 %files theme-nkids
 %defattr(-, root, root, -)
 %{_datadir}/%{name}/themes/nkids
+
+#---------------------------------------------------------
+
+%package theme-gis
+Summary: Addtional theme for qgis - gis
+Group: Sciences/Geosciences
+Requires: %{name} = %{version}-%{release}
+Conflicts: qgis < 1.0.0-3
+
+%description theme-gis
+Addtional theme for qgis - gis
+
+%files theme-gis
+%defattr(-, root, root, -)
+%{_datadir}/%{name}/themes/gis
 
 #---------------------------------------------------------
 
