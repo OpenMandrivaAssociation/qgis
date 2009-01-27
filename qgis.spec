@@ -7,7 +7,7 @@
 
 Name: qgis
 Version: 1.0.0
-Release: %mkrel 1
+Release: %mkrel 2
 Summary: Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://www.qgis.org/
@@ -212,11 +212,11 @@ cat > %{buildroot}/%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Quantum GIS
 Comment=Quantum Geographic Information System
-Exec=LD_LIBRARY_PATH=%{_libdir}/%{grass}/lib GISBASE=%{_libdir}/%{grass} %{_bindir}/%{name}
+Exec=%{_bindir}/%{name}
 Icon=%{name}
 Terminal=false
 Type=Application
-Categories=Science;Geoscience;
+Categories=Science;Geoscience;Qt;
 EOF
 
 # icon
