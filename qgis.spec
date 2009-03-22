@@ -6,13 +6,12 @@
 %define _requires_exceptions .*libgrass_.*
 
 Name: qgis
-Version: 1.0.0
-Release: %mkrel 3
+Version: 1.0.1
+Release: %mkrel 1
 Summary: Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://www.qgis.org/
 Source:	http://download.osgeo.org/qgis/src/qgis_%{version}.tar.gz
-Patch0: qgis_1.0.0-fix-str-fmt.patch
 Patch1: qgis_1.0.0-manpage-name.patch
 Patch2: qgis_1.0.0-linkage.patch
 License: GPLv2+
@@ -205,12 +204,13 @@ Addtional theme for qgis - gis
 
 %prep
 %setup -q -n %{name}_%{version}
-%patch0 -p0
 %patch1 -p0
 %patch2 -p0 -b .link
 
-%build
+# these translations have dup messages
+rm -f i18n/qgis_mn.ts i18n/qgis_pt_BR.ts i18n/qgis_lv.ts i18n/qgis_it.ts i18n/qgis_fr.ts i18n/qgis_lo.ts i18n/qgis_sk.ts
 
+%build
 %cmake_qt4 \
 	-DQGIS_LIB_SUBDIR=%{_lib} \
 	-DQGIS_PLUGIN_SUBDIR=%{_lib}/qgis \
@@ -220,7 +220,7 @@ Addtional theme for qgis - gis
 
 %install
 rm -rf %{buildroot}
-make -C build DESTDIR=%{buildroot} install
+%makeinstall_std -C build
 
 mv %{buildroot}/%{_prefix}/man %{buildroot}/%{_datadir}
 
