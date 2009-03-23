@@ -7,11 +7,11 @@
 
 Name: qgis
 Version: 1.0.1
-Release: %mkrel 1
+Release: %mkrel 2
 Summary: Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://www.qgis.org/
-Source:	http://download.osgeo.org/qgis/src/qgis_%{version}.tar.gz
+Source:	http://download.osgeo.org/qgis/src/qgis_%{version}-2.tar.gz
 Patch1: qgis_1.0.0-manpage-name.patch
 Patch2: qgis_1.0.0-linkage.patch
 License: GPLv2+
@@ -203,7 +203,7 @@ Addtional theme for qgis - gis
 #---------------------------------------------------------
 
 %prep
-%setup -q -n %{name}_%{version}
+%setup -q -n %{name}_%{version}-2
 %patch1 -p0
 %patch2 -p0 -b .link
 
