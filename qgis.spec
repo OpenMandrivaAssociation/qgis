@@ -186,7 +186,9 @@ Addtional theme for qgis - gis
 %prep
 %setup -q -n %{name}-%{version}
 %patch2 -p1 -b .link
-#dos2unix python/core/conversions.sip
+%if %mdkversion < 201010
+dos2unix python/core/conversions.sip
+%endif
 %patch3 -p2
 
 %build
