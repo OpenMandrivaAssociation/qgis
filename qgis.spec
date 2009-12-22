@@ -6,14 +6,14 @@
 %define _requires_exceptions .*libgrass_.*
 
 Name: qgis
-Version: 1.0.2
+Version: 1.3.0
 Release: %mkrel 1
 Summary: Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://www.qgis.org/
 Source:	http://download.osgeo.org/qgis/src/qgis_%{version}.tar.gz
-Patch1: qgis_1.0.0-manpage-name.patch
-Patch2: qgis_1.0.0-linkage.patch
+Patch2: qgis-1.3.0-sip-fix-python-linking.patch
+Patch3: qgis-1.3.0-sip-fixes.patch
 License: GPLv2+
 Obsoletes: %{libqgis}
 Obsoletes: %{libmsexport}
@@ -37,9 +37,10 @@ BuildRequires: netcdf-devel
 BuildRequires: qt4-devel 
 BuildRequires: qt4-linguist
 BuildRequires: python-sip
-BuildRequires: python-qt4
+BuildRequires: python-qt4-devel
 BuildRequires: python-BioSQL
 BuildRequires: imagemagick
+BuildRequires: dos2unix
 %py_requires -d
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
@@ -75,27 +76,7 @@ Planned features include:
 %{_bindir}/%{name}_help
 %{_libdir}/lib%{name}_*.so.*
 %dir %{_libdir}/%{name}
-%{_libdir}/%{name}/libcoordinatecaptureplugin.so
-%{_libdir}/%{name}/libcopyrightlabelplugin.so
-%{_libdir}/%{name}/libdelimitedtextplugin.so
-%{_libdir}/%{name}/libdelimitedtextprovider.so
-%{_libdir}/%{name}/libdxf2shpconverterplugin.so
-%{_libdir}/%{name}/libgeorefplugin.so
-%{_libdir}/%{name}/libgpsimporterplugin.so
-%{_libdir}/%{name}/libgpxprovider.so
-%{_libdir}/%{name}/libgridmakerplugin.so
-%{_libdir}/%{name}/libinterpolationplugin.so
-%{_libdir}/%{name}/libmemoryprovider.so
-%{_libdir}/%{name}/libnortharrowplugin.so
-%{_libdir}/%{name}/libogrconverterplugin.so
-%{_libdir}/%{name}/libogrprovider.so
-%{_libdir}/%{name}/libpostgresprovider.so
-%{_libdir}/%{name}/libquickprintplugin.so
-%{_libdir}/%{name}/libscalebarplugin.so
-%{_libdir}/%{name}/libspitplugin.so
-%{_libdir}/%{name}/libwfsplugin.so
-%{_libdir}/%{name}/libwfsprovider.so
-%{_libdir}/%{name}/libwmsprovider.so
+%{_libdir}/%{name}/*.so
 %{_datadir}/%{name}/doc
 %{_datadir}/applications/mandriva-%{name}.desktop
 %dir %{_datadir}/%{name}
@@ -204,11 +185,9 @@ Addtional theme for qgis - gis
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch1 -p0
-%patch2 -p0 -b .link
-
-# these translations have dup messages
-rm -f i18n/qgis_mn.ts i18n/qgis_pt_BR.ts i18n/qgis_lv.ts i18n/qgis_it.ts i18n/qgis_fr.ts i18n/qgis_lo.ts i18n/qgis_sk.ts
+%patch2 -p1 -b .link
+dos2unix python/core/conversions.sip
+%patch3 -p2
 
 %build
 %cmake_qt4 \
