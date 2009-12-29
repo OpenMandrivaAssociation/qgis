@@ -2,6 +2,8 @@
 %define libnamegrass %mklibname %{name}grass 0
 %define libqgis %mklibname qgis 0
 %define grass grass64
+# Doesnt build with -j16, does with -j12 or lower, we choose -j8
+%global make %(cpus=%_smp_mflags;if [ "${cpus##-j}" -gt 8 ];then echo make -j8;else echo make $cpus;fi)
 
 %define _requires_exceptions .*libgrass_.*
 
