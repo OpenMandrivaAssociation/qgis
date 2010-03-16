@@ -8,14 +8,13 @@
 %define _requires_exceptions .*libgrass_.*
 
 Name: qgis
-Version: 1.3.0
+Version: 1.4.0
 Release: %mkrel 1
 Summary: Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://www.qgis.org/
 Source:	http://download.osgeo.org/qgis/src/qgis_%{version}.tar.gz
-Patch2: qgis-1.3.0-sip-fix-python-linking.patch
-Patch3: qgis-1.3.0-sip-fixes.patch
+Patch2: qgis-1.4.0-fix-python-linking.patch
 License: GPLv2+
 Obsoletes: %{libqgis}
 Obsoletes: %{libmsexport}
@@ -191,7 +190,6 @@ Addtional theme for qgis - gis
 %if %mdkversion < 201010
 dos2unix python/core/conversions.sip
 %endif
-%patch3 -p2
 
 %build
 %cmake_qt4 \
