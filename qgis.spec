@@ -32,7 +32,7 @@ BuildRequires: imagemagick
 BuildRequires: flex 
 BuildRequires: bison
 BuildRequires: mlocate
-BuildRequires: postgresql-devel
+BuildRequires: postgresql8.4-devel
 BuildRequires: postgis-devel
 BuildRequires: netcdf-devel
 BuildRequires: qt4-devel 
