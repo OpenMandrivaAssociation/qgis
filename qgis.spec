@@ -90,7 +90,6 @@ Planned features include:
 %exclude %{_datadir}/%{name}/themes/default/grass
 %exclude %{_datadir}/%{name}/themes/classic/grass
 %exclude %{_datadir}/%{name}/themes/gis
-%exclude %{_datadir}/%{name}/themes/nkids
 %{_iconsdir}/hicolor/*/apps/*
 %doc AUTHORS BUGS ChangeLog README TODO
 
@@ -151,21 +150,6 @@ Python integration and plugins for qgis
 %defattr(-,root,root)
 %{_libdir}/libqgispython.so.*
 %{_datadir}/%{name}/python
-
-#---------------------------------------------------------
-
-%package theme-nkids
-Summary: Addtional theme for qgis - nkids
-Group: Sciences/Geosciences
-Requires: %{name} = %{version}-%{release}
-Conflicts: qgis < 1.0.0-3
-
-%description theme-nkids
-Addtional theme for qgis - nkids
-
-%files theme-nkids
-%defattr(-, root, root, -)
-%{_datadir}/%{name}/themes/nkids
 
 #---------------------------------------------------------
 
