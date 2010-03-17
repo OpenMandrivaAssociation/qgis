@@ -15,6 +15,7 @@ Group: Sciences/Geosciences
 URL: http://www.qgis.org/
 Source:	http://download.osgeo.org/qgis/src/qgis_%{version}.tar.gz
 Patch2: qgis-1.4.0-fix-python-linking.patch
+Patch4: qgis-1.4.0-sip-4.10.patch
 License: GPLv2+
 Obsoletes: %{libqgis}
 Obsoletes: %{libmsexport}
@@ -171,6 +172,7 @@ Addtional theme for qgis - gis
 %prep
 %setup -q -n %{name}-%{version}
 %patch2 -p1 -b .link
+%patch4 -p0 -b .sip
 %if %mdkversion < 201010
 dos2unix python/core/conversions.sip
 %endif
@@ -181,7 +183,7 @@ dos2unix python/core/conversions.sip
 	-DQGIS_PLUGIN_SUBDIR=%{_lib}/qgis \
 	-DGRASS_PREFIX=%{_libdir}/%{grass}
 
-%make
+make
 
 %install
 rm -rf %{buildroot}
