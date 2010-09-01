@@ -8,14 +8,13 @@
 %define _requires_exceptions .*libgrass_.*
 
 Name: qgis
-Version: 1.4.0
+Version: 1.5.0
 Release: %mkrel 1
 Summary: Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://www.qgis.org/
 Source:	http://download.osgeo.org/qgis/src/qgis_%{version}.tar.gz
-Patch2: qgis-1.4.0-fix-python-linking.patch
-Patch4: qgis-1.4.0-sip-4.10.patch
+Patch0: qgis-1.5.0-pyqt-4.7.5.patch
 License: GPLv2+
 Obsoletes: %{libqgis}
 Obsoletes: %{libmsexport}
@@ -34,7 +33,7 @@ BuildRequires: flex
 BuildRequires: bison
 BuildRequires: mlocate
 BuildRequires: postgresql8.4-devel
-BuildRequires: postgis-devel
+BuildRequires: postgis
 BuildRequires: netcdf-devel
 BuildRequires: qt4-devel 
 BuildRequires: qt4-linguist
@@ -130,6 +129,7 @@ within QGIS.
 %defattr(-,root,root)
 %{_libdir}/libqgisgrass.so.*
 %{_libdir}/%{name}/libgrass*.so
+%{_libdir}/%{name}/grass
 %{_datadir}/%{name}/grass
 %{_datadir}/%{name}/themes/default/grass
 %{_datadir}/%{name}/themes/classic/grass
@@ -171,8 +171,7 @@ Addtional theme for qgis - gis
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch2 -p1 -b .link
-%patch4 -p0 -b .sip
+%patch0 -p0 -b .pyqt
 %if %mdkversion < 201010
 dos2unix python/core/conversions.sip
 %endif
@@ -211,5 +210,3 @@ convert -scale 16 %{buildroot}%{_datadir}/%{name}/doc/images/qgis_new_80pct.png 
 
 %clean
 rm -rf %{buildroot}
-
-
