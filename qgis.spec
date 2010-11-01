@@ -9,7 +9,7 @@
 
 Name: qgis
 Version: 1.5.0
-Release: %mkrel 1
+Release: %mkrel 2
 Summary: Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://www.qgis.org/
