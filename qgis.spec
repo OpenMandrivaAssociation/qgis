@@ -28,11 +28,12 @@ BuildRequires: proj-devel
 BuildRequires: expat-devel
 BuildRequires: gsl-devel
 BuildRequires: cfitsio-devel 
+BuildRequires: libqwt-devel 
 BuildRequires: imagemagick
 BuildRequires: flex 
 BuildRequires: bison
 BuildRequires: mlocate
-BuildRequires: postgresql8.4-devel
+BuildRequires: postgresql-devel
 BuildRequires: postgis
 BuildRequires: netcdf-devel
 BuildRequires: qt4-devel 
@@ -72,11 +73,15 @@ Planned features include:
 
 %files
 %defattr(-,root,root)
+%doc BUGS README TODO
 %{_bindir}/%{name}
-%{_bindir}/%{name}_help
+%{_libdir}/%{name}/qgis_help
 %{_libdir}/lib%{name}_*.so.*
+# this might go in its own subpkg???
+%{_libdir}/lib%{name}sqlanyconnection*.so.*
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/*.so
+%exclude %{_libdir}/%{name}/libgrass*.so
 %{_datadir}/%{name}/doc
 %{_datadir}/applications/mandriva-%{name}.desktop
 %dir %{_datadir}/%{name}
@@ -90,7 +95,6 @@ Planned features include:
 %exclude %{_datadir}/%{name}/themes/classic/grass
 %exclude %{_datadir}/%{name}/themes/gis
 %{_iconsdir}/hicolor/*/apps/*
-%doc AUTHORS BUGS ChangeLog README TODO
 
 #---------------------------------------------------------
 
@@ -110,6 +114,8 @@ Development headers for QGIS
 %{_libdir}/lib%{name}_*.so
 %{_libdir}/libqgisgrass.so
 %{_libdir}/libqgispython.so
+%{_libdir}/lib%{name}sqlanyconnection*.so
+%{_datadir}/%{name}/FindQGIS.cmake
 
 #---------------------------------------------------------
 
@@ -181,7 +187,7 @@ dos2unix python/core/conversions.sip
 	-DQGIS_PLUGIN_SUBDIR=%{_lib}/qgis \
 	-DGRASS_PREFIX=%{_libdir}/%{grass}
 
-make
+%make
 
 %install
 rm -rf %{buildroot}
