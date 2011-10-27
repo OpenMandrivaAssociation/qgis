@@ -8,13 +8,13 @@
 %define _requires_exceptions .*libgrass_.*
 
 Name: qgis
-Version: 1.5.0
-Release: %mkrel 3
+Version: 1.7.1
+Release: 1
 Summary: Geographic Information System for Linux/Unix
 Group: Sciences/Geosciences
 URL: http://www.qgis.org/
-Source:	http://download.osgeo.org/qgis/src/qgis_%{version}.tar.gz
-Patch0: qgis-1.5.0-pyqt-4.7.5.patch
+Source0: http://qgis.org/downloads/qgis-%{version}.tar.bz2
+Patch0: qgis-1.7.1-pyqt-4.7.5.patch
 License: GPLv2+
 Obsoletes: %{libqgis}
 Obsoletes: %{libmsexport}
@@ -43,7 +43,6 @@ BuildRequires: python-BioSQL
 BuildRequires: imagemagick
 BuildRequires: dos2unix
 %py_requires -d
-BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
 Quantum GIS (QGIS) is designed to be a Geographic Information System (GIS) 
