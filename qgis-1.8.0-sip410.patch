@@ -1,0 +1,40 @@
+SIP < 4.10 has no -o option, therefore causing builds to fail
+http://hub.qgis.org/issues/5944
+
+diff -Nur qgis-1.8.0/python/CMakeLists.txt qgis-1.8.0-sip410/python/CMakeLists.txt
+--- qgis-1.8.0/python/CMakeLists.txt	2012-06-12 21:28:18.000000000 +0200
++++ qgis-1.8.0-sip410/python/CMakeLists.txt	2012-07-04 22:21:08.531677519 +0200
+@@ -62,7 +62,7 @@
+ # core module
+ FILE(GLOB sip_files_core core/*.sip)
+ SET(SIP_EXTRA_FILES_DEPEND ${sip_files_core})
+-SET(SIP_EXTRA_OPTIONS ${PYQT4_SIP_FLAGS} -o -a ${CMAKE_BINARY_DIR}/python/qgis.core.api)
++SET(SIP_EXTRA_OPTIONS ${PYQT4_SIP_FLAGS} -a ${CMAKE_BINARY_DIR}/python/qgis.core.api)
+ ADD_SIP_PYTHON_MODULE(qgis.core core/core.sip qgis_core)
+ 
+ # additional gui includes
+@@ -77,7 +77,7 @@
+ # gui module
+ FILE(GLOB sip_files_gui gui/*.sip)
+ SET(SIP_EXTRA_FILES_DEPEND ${sip_files_core} ${sip_files_gui})
+-SET(SIP_EXTRA_OPTIONS ${PYQT4_SIP_FLAGS} -o -a ${CMAKE_BINARY_DIR}/python/qgis.gui.api)
++SET(SIP_EXTRA_OPTIONS ${PYQT4_SIP_FLAGS} -a ${CMAKE_BINARY_DIR}/python/qgis.gui.api)
+ ADD_SIP_PYTHON_MODULE(qgis.gui gui/gui.sip qgis_core qgis_gui)
+ 
+ # additional analysis includes
+@@ -91,13 +91,13 @@
+ # analysis module
+ FILE(GLOB sip_files_analysis analysis/*.sip)
+ SET(SIP_EXTRA_FILES_DEPEND ${sip_files_core} ${sip_files_analysis})
+-SET(SIP_EXTRA_OPTIONS ${PYQT4_SIP_FLAGS} -o -a ${CMAKE_BINARY_DIR}/python/qgis.analysis.api)
++SET(SIP_EXTRA_OPTIONS ${PYQT4_SIP_FLAGS} -a ${CMAKE_BINARY_DIR}/python/qgis.analysis.api)
+ ADD_SIP_PYTHON_MODULE(qgis.analysis analysis/analysis.sip qgis_core qgis_analysis)
+ 
+ # network-analysis module
+ FILE(GLOB sip_files_network_analysis analysis/network/*.sip)
+ SET(SIP_EXTRA_FILES_DEPEND ${sip_files_core} ${sip_files_network_analysis})
+-SET(SIP_EXTRA_OPTIONS ${PYQT4_SIP_FLAGS} -o -a ${CMAKE_BINARY_DIR}/python/qgis.networkanalysis.api)
++SET(SIP_EXTRA_OPTIONS ${PYQT4_SIP_FLAGS} -a ${CMAKE_BINARY_DIR}/python/qgis.networkanalysis.api)
+ ADD_SIP_PYTHON_MODULE(qgis.networkanalysis analysis/network/networkanalysis.sip qgis_core qgis_networkanalysis)
+ 
+ SET (QGIS_PYTHON_DIR ${PYTHON_SITE_PACKAGES_DIR}/qgis)
