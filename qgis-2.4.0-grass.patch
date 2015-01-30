@@ -1,0 +1,13 @@
+diff --git a/cmake/FindGRASS.cmake b/cmake/FindGRASS.cmake
+index 3435a12..2476743 100644
+--- a/cmake/FindGRASS.cmake
++++ b/cmake/FindGRASS.cmake
+@@ -36,7 +36,7 @@ MACRO (CHECK_GRASS G_PREFIX)
+       MARK_AS_ADVANCED ( GRASS_LIBRARY_${LIB} )
+ 
+       SET(LIB_PATH NOTFOUND)
+-      FIND_LIBRARY(LIB_PATH NAMES grass_${LIB} PATHS ${G_PREFIX}/lib NO_DEFAULT_PATH)
++      FIND_LIBRARY(LIB_PATH NAMES grass_${LIB} PATHS ${G_PREFIX}/lib)
+ 
+       IF (LIB_PATH)
+         SET (GRASS_LIBRARY_${LIB} ${LIB_PATH})

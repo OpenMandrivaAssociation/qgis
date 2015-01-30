@@ -1,22 +1,20 @@
 # Doesnt build with -j16, does with -j12 or lower, we choose -j8
 %global make %(cpus=%_smp_mflags;if [ "${cpus##-j}" -gt 8 ];then echo make -j8;else echo make $cpus;fi)
 
-#define _requires_exceptions .*libgrass_.*
 %define __noautoreq '.*libgrass_.*'
 
-Name:		qgis
-Version:	1.8.0
-Release:	3
 Summary:	Geographic Information System for Linux/Unix
-Group:		Sciences/Geosciences
-URL:		http://www.qgis.org/
-Source0:	http://qgis.org/downloads/qgis-%{version}.tar.bz2
-Patch0:		qgis-1.8.0-datasource-crash.patch
-Patch1:		qgis-1.8.0-sip410.patch
+Name:		qgis
+Version:	2.4.0
+Release:	1
 License:	GPLv2+
-Requires:	python-BioSQL
-Requires:	postgis
-Obsoletes:	%{name}-theme-gis < 1.8.0
+Group:		Sciences/Geosciences
+Url:		http://www.qgis.org/
+Source0:	http://qgis.org/downloads/%{name}-%{version}.tar.bz2
+Source1:        %{name}-mime.xml
+Source100:	%{name}.rpmlintrc
+Patch1:		qgis-2.4.0-sip.patch
+Patch2:		qgis-2.4.0-grass.patch
 BuildRequires:	bison
 BuildRequires:	cmake
 BuildRequires:	dos2unix
@@ -26,22 +24,25 @@ BuildRequires:	imagemagick
 BuildRequires:	mlocate
 BuildRequires:	postgis
 BuildRequires:	python-sip
-BuildRequires:	pkgconfig(cfitsio)
-BuildRequires:	pkgconfig(expat)
-BuildRequires:	pkgconfig(gsl)
-BuildRequires:	pkgconfig(proj)
-BuildRequires:	pkgconfig(spatialite)
 BuildRequires:	gdal-devel
 BuildRequires:	geos-devel
 BuildRequires:	libqwt-devel
-BuildRequires:	netcdf-devel
-BuildRequires:	postgresql-devel
 BuildRequires:	python-BioSQL
 BuildRequires:	python-qt4-devel
 BuildRequires:	qt4-devel
 BuildRequires:	qt4-linguist
 BuildRequires:	spatialindex-devel
-%py_requires -d
+BuildRequires:	pkgconfig(cfitsio)
+BuildRequires:	pkgconfig(expat)
+BuildRequires:	pkgconfig(gsl)
+BuildRequires:	pkgconfig(libpq)
+BuildRequires:	pkgconfig(netcdf)
+BuildRequires:	pkgconfig(proj)
+BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(spatialite)
+Requires:	python-BioSQL
+Requires:	postgis
+Obsoletes:	%{name}-theme-gis < 1.8.0
 
 %description
 Quantum GIS (QGIS) is designed to be a Geographic Information System (GIS)
@@ -73,14 +74,17 @@ Planned features include:
 %{_libdir}/%{name}/*.so
 %exclude %{_libdir}/%{name}/libgrass*.so
 %{_datadir}/%{name}/doc
-%{_datadir}/applications/mandriva-%{name}.desktop
+%{_datadir}/applications/*.desktop
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/i18n
 %{_datadir}/%{name}/images
 %{_datadir}/%{name}/resources
 %{_datadir}/%{name}/svg
+%{_datadir}/mime/packages/*
+%{_datadir}/pixmaps/*
 %{_mandir}/man1/*
 %{_iconsdir}/hicolor/*/apps/*
+%{_iconsdir}/hicolor/*/mimetypes/*
 
 #---------------------------------------------------------
 
@@ -142,8 +146,8 @@ Python integration and plugins for qgis
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %cmake_qt4 \
@@ -155,8 +159,6 @@ Python integration and plugins for qgis
 
 %install
 %makeinstall_std -C build
-
-mv %{buildroot}/%{_prefix}/man %{buildroot}/%{_datadir}
 
 mkdir -p %{buildroot}/%{_datadir}/applications
 cat > %{buildroot}/%{_datadir}/applications/mandriva-%{name}.desktop << EOF
@@ -170,8 +172,39 @@ Type=Application
 Categories=Science;Geoscience;Qt;
 EOF
 
-# icon
-mkdir -p %{buildroot}%{_iconsdir}/hicolor/{48x48,32x32,16x16}/apps
-convert -scale 48 %{buildroot}%{_datadir}/%{name}/doc/images/qgis_new_80pct.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png
-convert -scale 32 %{buildroot}%{_datadir}/%{name}/doc/images/qgis_new_80pct.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
-convert -scale 16 %{buildroot}%{_datadir}/%{name}/doc/images/qgis_new_80pct.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png
+mv %{buildroot}/%{_prefix}/man %{buildroot}/%{_datadir}
+
+desktop-file-install \
+    --remove-mime-type="application/x-raster-ecw" \
+    --remove-mime-type="application/x-raster-mrsid" \
+    --dir=%{buildroot}%{_datadir}/applications \
+    debian/qgis.desktop
+
+desktop-file-install --dir=%{buildroot}%{_datadir}/applications \
+    debian/qbrowser.desktop
+
+# Install MIME type definitions
+install -d %{buildroot}%{_datadir}/mime/packages
+install -pm0644 %{SOURCE1} \
+    %{buildroot}%{_datadir}/mime/packages/%{name}.xml
+
+# Install application and MIME icons
+install -pd %{buildroot}%{_datadir}/pixmaps
+install -pd %{buildroot}%{_datadir}/icons/hicolor/16x16/apps
+install -pd %{buildroot}%{_datadir}/icons/hicolor/scalable/apps
+install -pd %{buildroot}%{_datadir}/icons/hicolor/128x128/mimetypes
+install -pm0644 \
+    %{buildroot}%{_datadir}/%{name}/images/icons/%{name}-icon.png \
+    %{buildroot}%{_datadir}/pixmaps/%{name}-icon.png
+install -pm0644 \
+    images/icons/%{name}-icon-16x16.png \
+    %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/%{name}-icon.png
+install -pm0644 \
+    images/icons/%{name}_icon.svg \
+    %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}-icon.svg
+install -pm0644 \
+    %{buildroot}%{_datadir}/%{name}/images/icons/%{name}-mime-icon.png \
+    %{buildroot}%{_datadir}/icons/hicolor/128x128/mimetypes/application-x-qgis-layer-settings.png
+install -pm0644 \
+    %{buildroot}%{_datadir}/%{name}/images/icons/%{name}-mime-icon.png \
+    %{buildroot}%{_datadir}/icons/hicolor/128x128/mimetypes/application-x-qgis-project.png
