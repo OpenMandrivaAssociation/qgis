@@ -58,6 +58,8 @@ BuildRequires:	python-sip-qt5
 BuildRequires:	pkgconfig(protobuf)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(qca2-qt5)
+BuildRequires:	qscintilla-qt5-devel
+BuildRequires:	python-qt5-qscintilla
 
 Requires:	python-BioSQL
 Obsoletes:	%{name}-theme-gis < 1.8.0
