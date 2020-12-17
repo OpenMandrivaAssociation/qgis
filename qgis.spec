@@ -55,6 +55,7 @@ BuildRequires:	pkgconfig(proj)
 BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(protobuf)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(qca2-qt5)
 
 Requires:	python-BioSQL
 Obsoletes:	%{name}-theme-gis < 1.8.0
