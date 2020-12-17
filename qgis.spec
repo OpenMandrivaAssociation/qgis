@@ -44,7 +44,7 @@ BuildRequires:  pkgconfig(Qt5WebKitWidgets)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5Xml)
 BuildRequires:  pkgconfig(Qt5XmlPatterns)
-
+BuildRequires:	pkgconfig(libzip)
 BuildRequires:	pkgconfig(cfitsio)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(gsl)
