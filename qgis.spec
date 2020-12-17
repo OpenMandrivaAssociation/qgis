@@ -27,7 +27,7 @@ BuildRequires:	gdal-devel
 BuildRequires:	geos-devel
 
 BuildRequires:  pkgconfig(OpenCL)
-BuildRequires:  pkgconfig(Qt5Qwt6)
+#BuildRequires:  pkgconfig(Qt5Qwt6)
 BuildRequires:  pkgconfig(Qt53DCore)
 BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5Core)
