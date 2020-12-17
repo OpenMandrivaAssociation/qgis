@@ -54,6 +54,7 @@ BuildRequires:	pkgconfig(netcdf)
 BuildRequires:	pkgconfig(proj)
 BuildRequires:	pkgconfig(python)
 BuildRequires:	python3dist(pyqt5)
+BuildRequires:	python-sip-qt5
 BuildRequires:	pkgconfig(protobuf)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(qca2-qt5)
