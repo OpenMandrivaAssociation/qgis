@@ -53,6 +53,7 @@ BuildRequires:	pkgconfig(netcdf)
 BuildRequires:	pkgconfig(proj)
 BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(protobuf)
+BuildRequires:	pkgconfig(zlib)
 
 Requires:	python-BioSQL
 Obsoletes:	%{name}-theme-gis < 1.8.0
