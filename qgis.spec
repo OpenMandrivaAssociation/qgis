@@ -158,11 +158,10 @@ Python integration and plugins for qgis
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch1 -p1
-%patch2 -p1
+
 
 %build
-%cmake_qt4 \
+%cmake \
 	-DQGIS_LIB_SUBDIR=%{_lib} \
 	-DQGIS_PLUGIN_SUBDIR=%{_lib}/qgis \
 	-DGRASS_PREFIX=%{_libdir}/%{grass}
