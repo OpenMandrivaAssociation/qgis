@@ -61,6 +61,7 @@ BuildRequires:	pkgconfig(qca2-qt5)
 BuildRequires:	qscintilla-qt5-devel
 BuildRequires:	python-qt5-qscintilla
 BuildRequires:	pkgconfig(exiv2)
+BuildRequires:	pkgconfig(proj)
 
 Requires:	python-BioSQL
 Obsoletes:	%{name}-theme-gis < 1.8.0
