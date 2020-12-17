@@ -5,33 +5,46 @@
 
 Summary:	Geographic Information System for Linux/Unix
 Name:		qgis
-Version:	2.4.0
-Release:	2
+Version:	3.16.1
+Release:	1
 License:	GPLv2+
 Group:		Sciences/Geosciences
 Url:		http://www.qgis.org/
 Source0:	http://qgis.org/downloads/%{name}-%{version}.tar.bz2
 Source1:        %{name}-mime.xml
 Source100:	%{name}.rpmlintrc
-Patch1:		qgis-2.4.0-sip.patch
-Patch2:		qgis-2.4.0-grass.patch
+#Patch1:		qgis-2.4.0-sip.patch
+#Patch2:		qgis-2.4.0-grass.patch
 BuildRequires:	bison
 BuildRequires:	cmake
 BuildRequires:	dos2unix
 BuildRequires:	flex
-BuildRequires:	grass
 BuildRequires:	imagemagick
 BuildRequires:	mlocate
-BuildRequires:	postgis
+
 BuildRequires:	python-sip
 BuildRequires:	gdal-devel
 BuildRequires:	geos-devel
-BuildRequires:	libqwt-devel
-BuildRequires:	python-BioSQL
-BuildRequires:	python-qt4-devel
-BuildRequires:	qt4-devel
-BuildRequires:	qt4-linguist
-BuildRequires:	spatialindex-devel
+
+BuildRequires:  pkgconfig(OpenCL)
+BuildRequires:  pkgconfig(Qt5Qwt6)
+BuildRequires:  pkgconfig(Qt53DCore)
+BuildRequires:  pkgconfig(Qt5Concurrent)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Help)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5QuickWidgets)
+BuildRequires:  pkgconfig(Qt5SerialPort)
+BuildRequires:  pkgconfig(Qt5Svg)
+BuildRequires:  pkgconfig(Qt5Test)
+BuildRequires:  pkgconfig(Qt5UiTools)
+BuildRequires:  pkgconfig(Qt5WebKit)
+BuildRequires:  pkgconfig(Qt5WebKitWidgets)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5Xml)
+BuildRequires:  pkgconfig(Qt5XmlPatterns)
+
 BuildRequires:	pkgconfig(cfitsio)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(gsl)
@@ -39,9 +52,8 @@ BuildRequires:	pkgconfig(libpq)
 BuildRequires:	pkgconfig(netcdf)
 BuildRequires:	pkgconfig(proj)
 BuildRequires:	pkgconfig(python)
-BuildRequires:	pkgconfig(spatialite)
+
 Requires:	python-BioSQL
-Requires:	postgis
 Obsoletes:	%{name}-theme-gis < 1.8.0
 
 %description
