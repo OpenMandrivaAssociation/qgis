@@ -25,7 +25,8 @@ BuildRequires:	mlocate
 BuildRequires:	python-sip
 BuildRequires:	gdal-devel
 BuildRequires:	geos-devel
-
+BuildRequires:	qt5-linguist
+BuildRequires:	cmake(Qt5LinguistTools)
 BuildRequires:  pkgconfig(OpenCL)
 #BuildRequires:  pkgconfig(Qt5Qwt6)
 BuildRequires:  pkgconfig(Qt53DCore)
