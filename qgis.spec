@@ -59,7 +59,7 @@ BuildRequires:	pkgconfig(protobuf)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(qca2-qt5)
 BuildRequires:	qscintilla-qt5-devel
-BuildRequires:	python-qt5-qscintilla
+#BuildRequires:	python-qt5-qscintilla
 BuildRequires:	pkgconfig(exiv2)
 BuildRequires:	pkgconfig(proj)
 
