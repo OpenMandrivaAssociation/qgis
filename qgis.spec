@@ -39,6 +39,7 @@ BuildRequires:	pkgconfig(netcdf)
 BuildRequires:	pkgconfig(proj)
 BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(protobuf)
+BuildRequires:	pkgconfig(exiv2)
 BuildRequires:	cmake(libzip)
 Obsoletes:	%{name}-theme-gis < 1.8.0
 
