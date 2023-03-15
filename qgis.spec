@@ -31,6 +31,7 @@ BuildRequires:	geos-devel
 BuildRequires:	cmake(Qt5)
 BuildRequires:	cmake(Qt5Core)
 BuildRequires:	cmake(Qt5Widgets)
+BuildRequires:	cmake(Qt5Network)
 BuildRequires:	cmake(Qt5SerialPort)
 BuildRequires:	qmake5
 BuildRequires:	pkgconfig(Qt5Qwt6)
