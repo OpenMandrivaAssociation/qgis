@@ -36,6 +36,7 @@ BuildRequires:	cmake(Qt5Positioning)
 BuildRequires:	cmake(Qt5SerialPort)
 BuildRequires:	cmake(Qt5Sql)
 BuildRequires:	cmake(Qt5Test)
+BuildRequires:	cmake(Qt5WebKit)
 BuildRequires:	cmake(Qt5Xml)
 BuildRequires:	qmake5
 BuildRequires:	pkgconfig(Qt5Qwt6)
