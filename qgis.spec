@@ -45,6 +45,7 @@ BuildRequires:	cmake(Qt53DInput)
 BuildRequires:	cmake(Qt53DLogic)
 BuildRequires:	cmake(Qt53DExtras)
 BuildRequires:	cmake(Qt5Multimedia)
+BuildRequires:	cmake(Qt5MultimediaWidgets)
 BuildRequires:	qmake5
 BuildRequires:	pkgconfig(qca2-qt5)
 BuildRequires:	pkgconfig(Qt5Qwt6)
