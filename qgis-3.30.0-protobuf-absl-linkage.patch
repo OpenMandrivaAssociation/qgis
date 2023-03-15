@@ -1,0 +1,12 @@
+diff -up qgis-3.30.0/src/core/CMakeLists.txt.omv~ qgis-3.30.0/src/core/CMakeLists.txt
+--- qgis-3.30.0/src/core/CMakeLists.txt.omv~	2023-03-12 21:30:06.180993046 +0100
++++ qgis-3.30.0/src/core/CMakeLists.txt	2023-03-12 21:30:40.006298411 +0100
+@@ -2263,6 +2263,8 @@ if(HAVE_OPENCL)
+   target_link_libraries(qgis_core ${OpenCL_LIBRARY})
+ endif()
+ 
++target_link_libraries(qgis_core absl_log_internal_check_op absl_log_internal_message)
++
+ 
+ if(NOT APPLE OR NOT QGIS_MACAPP_FRAMEWORK)
+   install(FILES ${QGIS_CORE_HDRS} DESTINATION ${QGIS_INCLUDE_DIR})
