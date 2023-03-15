@@ -33,6 +33,7 @@ BuildRequires:	cmake(Qt5Core)
 BuildRequires:	cmake(Qt5Widgets)
 BuildRequires:	cmake(Qt5Network)
 BuildRequires:	cmake(Qt5SerialPort)
+BuildRequires:	cmake(Qt5Sql)
 BuildRequires:	cmake(Qt5Test)
 BuildRequires:	cmake(Qt5Xml)
 BuildRequires:	qmake5
