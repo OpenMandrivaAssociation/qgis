@@ -23,9 +23,43 @@ BuildRequires:	grass
 BuildRequires:	imagemagick
 BuildRequires:	mlocate
 BuildRequires:	postgis
-BuildRequires:	python-sip
 BuildRequires:  qscintilla-qt5-devel
+BuildRequires:	python-sip-qt5
+BuildRequires:	python-qt5-core
+BuildRequires:	python-qt5-quick
+BuildRequires:	python-qt5-xml
+BuildRequires:	python-qt5-xmlpatterns
+BuildRequires:	python-qt5-quickwidgets
+BuildRequires:	python-qt5-bluetooth
+BuildRequires:	python-qt5-dbus
+BuildRequires:	python-qt5-designer
+BuildRequires:	python-qt5-enginio
+BuildRequires:	python-qt5-gui
+BuildRequires:	python-qt5-location
+BuildRequires:	python-qt5-multimedia
+BuildRequires:	python-qt5-multimediawidgets
+BuildRequires:	python-qt5-network
+BuildRequires:	python-qt5-nfc
+BuildRequires:	python-qt5-opengl
+BuildRequires:	python-qt5-positioning
+BuildRequires:	python-qt5-printsupport
+BuildRequires:	python-qt5-qml
+BuildRequires:	python-qt5-remoteobjects
+BuildRequires:	python-qt5-sensors
+BuildRequires:	python-qt5-serialport
+BuildRequires:	python-qt5-sql
+BuildRequires:	python-qt5-svg
+BuildRequires:	python-qt5-test
+BuildRequires:	python-qt5-webchannel
+BuildRequires:	python-qt5-webkit
+BuildRequires:	python-qt5-webkitwidgets
+BuildRequires:	python-qt5-websockets
+BuildRequires:	python-qt5-widgets
+BuildRequires:	python-qt5-x11extras
+BuildRequires:	python-qt5
+BuildRequires:	python-qt5-devel
 BuildRequires:	python-qt5-qscintilla
+BuildRequires:	python-qt-builder
 BuildRequires:	pkgconfig(gdal)
 BuildRequires:	geos-devel
 BuildRequires:	cmake(Qt5)
@@ -146,8 +180,8 @@ within QGIS.
 Summary:	Python integration and plugins for qgis
 Group:		Sciences/Geosciences
 Requires:	%{name} = %{version}-%{release}
-Requires:	python-sip
-Requires:	python-qt4
+Requires:	python-sip-qt5
+Requires:	python-qt5
 Conflicts:	qgis < 0.11.0
 
 %description python
