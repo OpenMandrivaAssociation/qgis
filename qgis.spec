@@ -7,12 +7,13 @@
 Summary:	Geographic Information System for Linux/Unix
 Name:		qgis
 Version:	3.30.2
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Sciences/Geosciences
 Url:		http://www.qgis.org/
 Source0:	http://qgis.org/downloads/%{name}-%{version}.tar.bz2
 Patch0:		qgis-3.30.0-protobuf-absl-linkage.patch
+Patch1:		qgis-3.30.2-exiv2-0.28.patch
 Source100:	%{name}.rpmlintrc
 BuildRequires:	bison
 BuildRequires:	cmake
