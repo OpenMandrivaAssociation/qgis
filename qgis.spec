@@ -10,6 +10,7 @@ Group:		Sciences/Geosciences
 Url:		http://www.qgis.org/
 Source0:	http://qgis.org/downloads/%{name}-%{version}.tar.bz2
 Patch0:		qgis-3.30.0-protobuf-absl-linkage.patch
+Patch1:		qgis-3.36.0-qca6_find.patch
 Source100:	%{name}.rpmlintrc
 BuildRequires:	bison
 BuildRequires:	cmake
@@ -19,73 +20,69 @@ BuildRequires:	flex
 BuildRequires:	grass
 BuildRequires:	imagemagick
 BuildRequires:	mlocate
+BuildRequires:	opencl-headers
 BuildRequires:	postgis
-BuildRequires:  qscintilla-qt5-devel
-BuildRequires:	python-sip-qt5
-BuildRequires:	python-qt5-core
-BuildRequires:	python-qt5-quick
-BuildRequires:	python-qt5-xml
-BuildRequires:	python-qt5-xmlpatterns
-BuildRequires:	python-qt5-quickwidgets
-BuildRequires:	python-qt5-bluetooth
-BuildRequires:	python-qt5-dbus
-BuildRequires:	python-qt5-designer
-BuildRequires:	python-qt5-enginio
-BuildRequires:	python-qt5-gui
-BuildRequires:	python-qt5-location
-BuildRequires:	python-qt5-multimedia
-BuildRequires:	python-qt5-multimediawidgets
-BuildRequires:	python-qt5-network
-BuildRequires:	python-qt5-nfc
-BuildRequires:	python-qt5-opengl
-BuildRequires:	python-qt5-positioning
-BuildRequires:	python-qt5-printsupport
-BuildRequires:	python-qt5-qml
-BuildRequires:	python-qt5-remoteobjects
-BuildRequires:	python-qt5-sensors
-BuildRequires:	python-qt5-serialport
-BuildRequires:	python-qt5-sql
-BuildRequires:	python-qt5-svg
-BuildRequires:	python-qt5-test
-BuildRequires:	python-qt5-webchannel
-BuildRequires:	python-qt5-webengine
-BuildRequires:	python-qt5-webengine-widgets
-BuildRequires:	python-qt5-websockets
-BuildRequires:	python-qt5-widgets
-BuildRequires:	python-qt5-x11extras
-BuildRequires:	python-qt5
-BuildRequires:	python-qt5-devel
-BuildRequires:	python-qt5-qscintilla
+BuildRequires:  qscintilla-qt6-devel
+BuildRequires:	python-sip-qt6
+BuildRequires:	python-qt6-core
+BuildRequires:	python-qt6-quick
+BuildRequires:	python-qt6-xml
+BuildRequires:	python-qt6-quickwidgets
+BuildRequires:	python-qt6-bluetooth
+BuildRequires:	python-qt6-dbus
+BuildRequires:	python-qt6-designer
+BuildRequires:	python-qt6-gui
+BuildRequires:	python-qt6-multimedia
+BuildRequires:	python-qt6-multimediawidgets
+BuildRequires:	python-qt6-network
+BuildRequires:	python-qt6-nfc
+BuildRequires:	python-qt6-opengl
+BuildRequires:	python-qt6-positioning
+BuildRequires:	python-qt6-printsupport
+BuildRequires:	python-qt6-qml
+BuildRequires:	python-qt6-remoteobjects
+BuildRequires:	python-qt6-sensors
+BuildRequires:	python-qt6-serialport
+BuildRequires:	python-qt6-sql
+BuildRequires:	python-qt6-svg
+BuildRequires:	python-qt6-test
+BuildRequires:	python-qt6-webchannel
+BuildRequires:	python-qt6-webengine
+BuildRequires:	python-qt6-websockets
+BuildRequires:	python-qt6-widgets
+BuildRequires:	python-qt6
+BuildRequires:	python-qt6-devel
+BuildRequires:	python-qt6-qscintilla
 BuildRequires:	python-qt-builder
 BuildRequires:	pkgconfig(gdal)
 BuildRequires:	geos-devel
-BuildRequires:	cmake(Qt5)
-BuildRequires:	cmake(Qt5Core)
-BuildRequires:	cmake(Qt5Widgets)
-BuildRequires:	cmake(Qt5Network)
-BuildRequires:	cmake(Qt5Positioning)
-BuildRequires:	cmake(Qt5Qml)
-BuildRequires:	cmake(Qt5Quick)
-BuildRequires:	cmake(Qt5QuickWidgets)
-BuildRequires:	cmake(Qt5SerialPort)
-BuildRequires:	cmake(Qt5Sql)
-BuildRequires:	cmake(Qt5Test)
-BuildRequires:	cmake(Qt5UiTools)
-BuildRequires:	cmake(Qt5LinguistTools)
-BuildRequires:	cmake(Qt5WebEngine)
-BuildRequires:	cmake(Qt5WebEngineWidgets)
-BuildRequires:	cmake(Qt5Xml)
-BuildRequires:	cmake(Qt53DCore)
-BuildRequires:	cmake(Qt53DRender)
-BuildRequires:	cmake(Qt53DInput)
-BuildRequires:	cmake(Qt53DLogic)
-BuildRequires:	cmake(Qt53DExtras)
-BuildRequires:	cmake(Qt5Multimedia)
-BuildRequires:	cmake(Qt5MultimediaWidgets)
-BuildRequires:	cmake(Qt5Keychain)
-BuildRequires:	qmake5
-BuildRequires:	pkgconfig(qca2-qt5)
-BuildRequires:	pkgconfig(Qt5Qwt6)
+BuildRequires:	cmake(Qt6)
+BuildRequires:	cmake(Qt6Core)
+BuildRequires:	cmake(Qt6Widgets)
+BuildRequires:	cmake(Qt6Network)
+BuildRequires:	cmake(Qt6Positioning)
+BuildRequires:	cmake(Qt6Qml)
+BuildRequires:	cmake(Qt6Quick)
+BuildRequires:	cmake(Qt6QuickWidgets)
+BuildRequires:	cmake(Qt6SerialPort)
+BuildRequires:	cmake(Qt6Sql)
+BuildRequires:	cmake(Qt6Test)
+BuildRequires:	cmake(Qt6UiTools)
+BuildRequires:	cmake(Qt6LinguistTools)
+BuildRequires:	cmake(Qt6WebEngineWidgets)
+BuildRequires:	cmake(Qt6Xml)
+BuildRequires:	cmake(Qt63DCore)
+BuildRequires:	cmake(Qt63DRender)
+BuildRequires:	cmake(Qt63DInput)
+BuildRequires:	cmake(Qt63DLogic)
+BuildRequires:	cmake(Qt63DExtras)
+BuildRequires:	cmake(Qt6Multimedia)
+BuildRequires:	cmake(Qt6MultimediaWidgets)
+BuildRequires:	cmake(Qt6Keychain)
+BuildRequires:	cmake(Qt6SvgWidgets)
+BuildRequires:	qmake-qt6
+BuildRequires:	cmake(qca-qt6)
+BuildRequires:	pkgconfig(Qt6Qwt6)
 BuildRequires:	pkgconfig(spatialite)
 BuildRequires:	spatialindex-devel
 BuildRequires:	pkgconfig(cfitsio)
@@ -132,6 +129,8 @@ Planned features include:
 %{_libdir}/%{name}/crssync
 %{_libdir}/%{name}/qgiscrashhandler
 %{_libdir}/%{name}/*.so
+%{_libdir}/%{name}/pdal_wrench
+%{_libdir}/%{name}/untwine
 %{_datadir}/%{name}/doc
 %{_datadir}/applications/*.desktop
 %dir %{_datadir}/%{name}
@@ -160,6 +159,7 @@ Development headers for QGIS
 %files devel
 %{_includedir}/*
 %{_libdir}/lib%{name}_*.so
+%{_libdir}/lib%{name}grass*.so
 %{_libdir}/libqgispython.so
 %{_datadir}/%{name}/FindQGIS.cmake
 
@@ -176,6 +176,9 @@ This package provides plugins for QGIS that provide access to GRASS data from
 within QGIS.
 
 %files grass
+%{_libdir}/libqgisgrass*.so.*
+%{_libdir}/%{name}/grass
+%{_datadir}/%{name}/grass
 
 #---------------------------------------------------------
 
@@ -184,7 +187,7 @@ Summary:	Python integration and plugins for qgis
 Group:		Sciences/Geosciences
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-sip-qt5
-Requires:	python-qt5
+Requires:	python-qt6
 Conflicts:	qgis < 0.11.0
 
 %description python
@@ -198,22 +201,23 @@ Python integration and plugins for qgis
 
 %prep
 %autosetup -p1
-export LD_LIBRARY_PATH=$(pwd)/build/output/%{_lib}
+export LD_LIBRARY_PATH=$(pwd)/build/output/%{_lib}:$(pwd)/build/usr/lib
 %cmake \
 	-DQGIS_LIB_SUBDIR=%{_lib} \
 	-DQGIS_PLUGIN_SUBDIR=%{_lib}/qgis \
 	-DGRASS_PREFIX=%{_libdir}/%{grass} \
 	-DWITH_QTWEBKIT=FALSE \
+	-DBUILD_WITH_QT6=TRUE \
 	-DWITH_QTWEBENGINE=TRUE \
 	-DWITH_PDF4QT=TRUE \
 	-G Ninja
 
 %build
-export LD_LIBRARY_PATH=$(pwd)/build/output/%{_lib}
+export LD_LIBRARY_PATH=$(pwd)/build/output/%{_lib}:$(pwd)/build/usr/lib
 %ninja_build -C build
 
 %install
-export LD_LIBRARY_PATH=$(pwd)/build/output/%{_lib}
+export LD_LIBRARY_PATH=$(pwd)/build/output/%{_lib}:$(pwd)/build/usr/lib
 %ninja_install -C build
 
 mv %{buildroot}/%{_prefix}/man %{buildroot}/%{_datadir}
