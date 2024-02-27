@@ -1,19 +1,16 @@
 %global optflags %{optflags} -DPROTOBUF_USE_DLLS -flto=thin
-# Doesn't build with -j16, does with -j12 or lower, we choose -j8
-#global make %(cpus=%_smp_mflags;if [ "${cpus##-j}" -gt 8 ];then echo make -j8;else echo make $cpus;fi)
 
 %define __noautoreq '.*libgrass_.*'
 
 Summary:	Geographic Information System for Linux/Unix
 Name:		qgis
-Version:	3.32.0
+Version:	3.36.0
 Release:	1
 License:	GPLv2+
 Group:		Sciences/Geosciences
 Url:		http://www.qgis.org/
 Source0:	http://qgis.org/downloads/%{name}-%{version}.tar.bz2
 Patch0:		qgis-3.30.0-protobuf-absl-linkage.patch
-Patch1:		qgis-3.30.2-exiv2-0.28.patch
 Source100:	%{name}.rpmlintrc
 BuildRequires:	bison
 BuildRequires:	cmake
@@ -52,8 +49,8 @@ BuildRequires:	python-qt5-sql
 BuildRequires:	python-qt5-svg
 BuildRequires:	python-qt5-test
 BuildRequires:	python-qt5-webchannel
-BuildRequires:	python-qt5-webkit
-BuildRequires:	python-qt5-webkitwidgets
+BuildRequires:	python-qt5-webengine
+BuildRequires:	python-qt5-webengine-widgets
 BuildRequires:	python-qt5-websockets
 BuildRequires:	python-qt5-widgets
 BuildRequires:	python-qt5-x11extras
@@ -76,8 +73,8 @@ BuildRequires:	cmake(Qt5Sql)
 BuildRequires:	cmake(Qt5Test)
 BuildRequires:	cmake(Qt5UiTools)
 BuildRequires:	cmake(Qt5LinguistTools)
-BuildRequires:	cmake(Qt5WebKit)
-BuildRequires:	cmake(Qt5WebKitWidgets)
+BuildRequires:	cmake(Qt5WebEngine)
+BuildRequires:	cmake(Qt5WebEngineWidgets)
 BuildRequires:	cmake(Qt5Xml)
 BuildRequires:	cmake(Qt53DCore)
 BuildRequires:	cmake(Qt53DRender)
@@ -93,6 +90,7 @@ BuildRequires:	pkgconfig(Qt5Qwt6)
 BuildRequires:	pkgconfig(spatialite)
 BuildRequires:	spatialindex-devel
 BuildRequires:	pkgconfig(cfitsio)
+BuildRequires:	pkgconfig(draco)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(gsl)
 BuildRequires:	pkgconfig(libpq)
@@ -201,6 +199,8 @@ export LD_LIBRARY_PATH=$(pwd)/build/output/%{_lib}
 	-DQGIS_LIB_SUBDIR=%{_lib} \
 	-DQGIS_PLUGIN_SUBDIR=%{_lib}/qgis \
 	-DGRASS_PREFIX=%{_libdir}/%{grass} \
+	-DWITH_QTWEBKIT=FALSE \
+	-DWITH_QTWEBENGINE=TRUE \
 	-G Ninja
 
 %build
