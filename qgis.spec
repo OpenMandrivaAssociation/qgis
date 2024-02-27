@@ -95,6 +95,7 @@ BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(gsl)
 BuildRequires:	pkgconfig(libpq)
 BuildRequires:	pkgconfig(netcdf)
+BuildRequires:	pkgconfig(pdal)
 BuildRequires:	pkgconfig(proj)
 BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(protobuf)
@@ -201,6 +202,7 @@ export LD_LIBRARY_PATH=$(pwd)/build/output/%{_lib}
 	-DGRASS_PREFIX=%{_libdir}/%{grass} \
 	-DWITH_QTWEBKIT=FALSE \
 	-DWITH_QTWEBENGINE=TRUE \
+	-DWITH_PDF4QT=TRUE \
 	-G Ninja
 
 %build
