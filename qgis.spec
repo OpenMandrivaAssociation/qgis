@@ -1,5 +1,4 @@
 %global optflags %{optflags} -DPROTOBUF_USE_DLLS -flto=thin
-
 %define __noautoreq '.*libgrass_.*'
 
 Summary:	Geographic Information System for Linux/Unix
@@ -93,6 +92,7 @@ BuildRequires:	pkgconfig(cfitsio)
 BuildRequires:	pkgconfig(draco)
 BuildRequires:	pkgconfig(expat)
 BuildRequires:	pkgconfig(gsl)
+BuildRequires:	pkgconfig(lcms2)
 BuildRequires:	pkgconfig(libpq)
 BuildRequires:	pkgconfig(netcdf)
 BuildRequires:	pkgconfig(pdal)
@@ -100,6 +100,9 @@ BuildRequires:	pkgconfig(proj)
 BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(protobuf)
 BuildRequires:	pkgconfig(exiv2)
+BuildRequires:	pkgconfig(freetype2)
+BuildRequires:	pkgconfig(fontconfig)
+BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	cmake(libzip)
 Obsoletes:	%{name}-theme-gis < 1.8.0
 
