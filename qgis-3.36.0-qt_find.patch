@@ -1,0 +1,54 @@
+--- qgis-3.36.0/cmake/FindQCA.cmake.orig	2024-02-27 12:35:57.423775232 +0000
++++ qgis-3.36.0/cmake/FindQCA.cmake	2024-02-27 12:37:54.681336848 +0000
+@@ -31,6 +31,7 @@
+       "$ENV{LIB_DIR}"
+       $ENV{LIB_DIR}/lib
+       /usr/local/lib
++      /usr/lib64/qt6/lib
+   )
+ 
+   set(_qca_fw)
+@@ -46,6 +47,7 @@
+       "$ENV{LIB_DIR}/include"
+       $ENV{INCLUDE}
+       /usr/local/include
++      /usr/lib64/qt6/include
+       PATH_SUFFIXES ${QCA_PATH_SUFFIXES}
+   )
+ 
+--- qgis-3.36.0/cmake/FindQwt.cmake.orig	2024-02-27 12:41:05.714728631 +0000
++++ qgis-3.36.0/cmake/FindQwt.cmake	2024-02-27 12:41:42.603644911 +0000
+@@ -23,6 +23,7 @@
+     /usr/local/lib/${QT_VERSION_BASE_LOWER}
+     "$ENV{LIB_DIR}/lib"
+     "$ENV{LIB}"
++    /usr/lib64/qt6/lib 
+ )
+ 
+ set(_qwt_fw)
+@@ -38,6 +39,7 @@
+   /usr/local/include/${QT_VERSION_BASE_LOWER}
+   "$ENV{LIB_DIR}/include"
+   "$ENV{INCLUDE}"
++  /usr/lib64/qt6/include
+   PATH_SUFFIXES qwt-${QT_VERSION_BASE_LOWER} ${QT_VERSION_BASE_LOWER}/qwt qwt qwt6
+ )
+ 
+--- qgis-3.36.0/cmake/FindQScintilla.cmake.orig	2024-02-27 12:44:54.303010199 +0000
++++ qgis-3.36.0/cmake/FindQScintilla.cmake	2024-02-27 12:45:22.669176047 +0000
+@@ -48,6 +48,7 @@
+       /usr/local/lib
+       /usr/local/lib/${QT_VERSION_BASE_LOWER}
+       /usr/lib
++      /usr/lib64/qt6/lib
+   )
+ 
+   set(_qsci_fw)
+@@ -64,6 +65,7 @@
+       $ENV{LIB_DIR}/include
+       /usr/local/include
+       /usr/include
++      /usr/lib64/qt6/include
+     PATH_SUFFIXES ${QSCINTILLA_PATH_SUFFIXES}
+     )
+ 

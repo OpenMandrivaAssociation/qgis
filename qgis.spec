@@ -10,7 +10,10 @@ Group:		Sciences/Geosciences
 Url:		http://www.qgis.org/
 Source0:	http://qgis.org/downloads/%{name}-%{version}.tar.bz2
 Patch0:		qgis-3.30.0-protobuf-absl-linkage.patch
-Patch1:		qgis-3.36.0-qca6_find.patch
+# fixes for finding libs in the place we put them
+Patch1:		qgis-3.36.0-qt_find.patch
+# dont use the upstream pdf4qt name for our private copy
+Patch2:		qgis-3.36.0-pdf4qt_private.patch
 Source100:	%{name}.rpmlintrc
 BuildRequires:	bison
 BuildRequires:	cmake
@@ -21,6 +24,7 @@ BuildRequires:	grass
 BuildRequires:	imagemagick
 BuildRequires:	mlocate
 BuildRequires:	opencl-headers
+BuildRequires:	cmake(openclicdloader)
 BuildRequires:	postgis
 BuildRequires:  qscintilla-qt6-devel
 BuildRequires:	python-sip-qt6
@@ -221,3 +225,6 @@ export LD_LIBRARY_PATH=$(pwd)/build/output/%{_lib}:$(pwd)/build/usr/lib
 %ninja_install -C build
 
 mv %{buildroot}/%{_prefix}/man %{buildroot}/%{_datadir}
+
+mv %{buildroot}/usr/usr/lib/*.so.* %{buildroot}/%{_libdir}/
+rm -f %{buildroot}/usr/usr/lib/.so
