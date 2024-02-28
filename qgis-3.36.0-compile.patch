@@ -1,0 +1,11 @@
+--- qgis-3.36.0/tests/src/core/geometry/testqgsgeometry.cpp.orig	2024-02-23 12:04:10.000000000 +0000
++++ qgis-3.36.0/tests/src/core/geometry/testqgsgeometry.cpp	2024-02-28 21:19:36.903619204 +0000
+@@ -1712,7 +1712,7 @@
+ 
+   QByteArray ba2;
+   QDataStream ds2( &ba2, QIODevice::ReadWrite );
+-  ds2 << emptyGeom.get();
++  ds2 << *emptyGeom.get();
+ 
+   ds2.device()->seek( 0 );
+   ds2 >> resultGeometry;
