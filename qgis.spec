@@ -193,7 +193,7 @@ within QGIS.
 Summary:	Python integration and plugins for qgis
 Group:		Sciences/Geosciences
 Requires:	%{name} = %{version}-%{release}
-Requires:	python-sip-qt5
+Requires:	python-sip-qt6
 Requires:	python-qt6
 Conflicts:	qgis < 0.11.0
 
