@@ -132,6 +132,7 @@ Planned features include:
 %{_bindir}/qgis_process
 %{_bindir}/%{name}
 %{_libdir}/lib%{name}_*.so.*
+%{_libdir}/lib%{name}Pdf4QtLibCore.so.*
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/crssync
 %{_libdir}/%{name}/qgiscrashhandler
@@ -230,4 +231,4 @@ export LD_LIBRARY_PATH=$(pwd)/build/output/%{_lib}:$(pwd)/build/usr/lib
 mv %{buildroot}/%{_prefix}/man %{buildroot}/%{_datadir}
 
 mv %{buildroot}/usr/usr/lib/*.so.* %{buildroot}/%{_libdir}/
-rm -f %{buildroot}/usr/usr/lib/.so
+rm -Rf %{buildroot}/usr/usr
