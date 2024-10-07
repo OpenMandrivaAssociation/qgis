@@ -1,0 +1,11 @@
+diff -up qgis-3.38.3/external/PDF4QT/Pdf4QtLibCore/CMakeLists.txt.omv~ qgis-3.38.3/external/PDF4QT/Pdf4QtLibCore/CMakeLists.txt
+--- qgis-3.38.3/external/PDF4QT/Pdf4QtLibCore/CMakeLists.txt.omv~	2024-10-06 22:44:22.857963898 +0200
++++ qgis-3.38.3/external/PDF4QT/Pdf4QtLibCore/CMakeLists.txt	2024-10-06 22:44:41.778177115 +0200
+@@ -163,6 +163,7 @@ target_link_libraries(qgisPdf4QtLibCore
+ target_link_libraries(qgisPdf4QtLibCore PRIVATE ${Fontconfig_LIBRARIES})
+ target_link_libraries(qgisPdf4QtLibCore PRIVATE openjp2)
+ target_link_libraries(qgisPdf4QtLibCore PRIVATE JPEG::JPEG)
++target_link_libraries(qgisPdf4QtLibCore PRIVATE tbb)
+ 
+ target_include_directories(qgisPdf4QtLibCore PRIVATE SYSTEM
+                            ${FREETYPE_INCLUDE_DIRS}
