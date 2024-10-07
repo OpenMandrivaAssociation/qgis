@@ -108,6 +108,7 @@ BuildRequires:	pkgconfig(exiv2)
 BuildRequires:	pkgconfig(freetype2)
 BuildRequires:	pkgconfig(fontconfig)
 BuildRequires:	pkgconfig(libjpeg)
+BuildRequires:	pkgconfig(tbb)
 BuildRequires:	cmake(libzip)
 Obsoletes:	%{name}-theme-gis < 1.8.0
 
