@@ -7,7 +7,7 @@ Version:	3.38.3
 Release:	1
 License:	GPLv2+
 Group:		Sciences/Geosciences
-Url:		http://www.qgis.org/
+Url:		https://www.qgis.org/
 Source0:	http://qgis.org/downloads/%{name}-%{version}.tar.bz2
 Patch0:		qgis-3.30.0-protobuf-absl-linkage.patch
 # fixes for finding libs in the place we put them
