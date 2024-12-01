@@ -110,6 +110,7 @@ BuildRequires:	pkgconfig(fontconfig)
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(tbb)
 BuildRequires:	cmake(libzip)
+Requires:	gdal-python
 Obsoletes:	%{name}-theme-gis < 1.8.0
 
 %description
