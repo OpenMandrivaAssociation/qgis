@@ -4,7 +4,7 @@
 Summary:	Geographic Information System for Linux/Unix
 Name:		qgis
 Version:	3.40.1
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Sciences/Geosciences
 Url:		https://www.qgis.org/
