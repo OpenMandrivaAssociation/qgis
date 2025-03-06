@@ -14,7 +14,7 @@ Patch0:		qgis-3.30.0-protobuf-absl-linkage.patch
 Patch1:		qgis-3.36.0-qt_find.patch
 # dont use the upstream pdf4qt name for our private copy
 Patch2:		qgis-3.36.0-pdf4qt_private.patch
-#Patch3:		qgis-3.36.0-compile.patch
+Patch3:		qgis-3.42.0-compile_flags.patch
 Patch4:		qgis-3.38.3-tbb-linkage.patch
 Source100:	%{name}.rpmlintrc
 BuildRequires:	bison
