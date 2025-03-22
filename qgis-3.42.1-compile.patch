@@ -1,0 +1,60 @@
+diff -up qgis-3.42.1/external/PDF4QT/Pdf4QtLibCore/sources/pdfdocumentsanitizer.cpp.omv~ qgis-3.42.1/external/PDF4QT/Pdf4QtLibCore/sources/pdfdocumentsanitizer.cpp
+--- qgis-3.42.1/external/PDF4QT/Pdf4QtLibCore/sources/pdfdocumentsanitizer.cpp.omv~	2025-03-22 04:07:51.570357227 +0100
++++ qgis-3.42.1/external/PDF4QT/Pdf4QtLibCore/sources/pdfdocumentsanitizer.cpp	2025-03-22 04:09:40.251397873 +0100
+@@ -161,7 +161,7 @@ void PDFDocumentSanitizer::performSaniti
+ 
+     PDFExecutionPolicy::execute(PDFExecutionPolicy::Scope::Unknown, objects.begin(), objects.end(), processEntry);
+     m_storage.setObjects(qMove(objects));
+-    Q_EMIT sanitizationProgress(tr("Metadata streams removed: %1").arg(counter));
++    Q_EMIT sanitizationProgress(tr("Metadata streams removed: %1").arg(counter.load()));
+ }
+ 
+ void PDFDocumentSanitizer::performSanitizeOutline()
+diff -up qgis-3.42.1/external/PDF4QT/Pdf4QtLibCore/sources/pdfoptimizer.cpp.omv~ qgis-3.42.1/external/PDF4QT/Pdf4QtLibCore/sources/pdfoptimizer.cpp
+--- qgis-3.42.1/external/PDF4QT/Pdf4QtLibCore/sources/pdfoptimizer.cpp.omv~	2025-03-22 04:13:15.034351755 +0100
++++ qgis-3.42.1/external/PDF4QT/Pdf4QtLibCore/sources/pdfoptimizer.cpp	2025-03-22 04:14:17.005610092 +0100
+@@ -194,7 +194,7 @@ bool PDFOptimizer::performDereferenceSim
+ 
+     PDFExecutionPolicy::execute(PDFExecutionPolicy::Scope::Unknown, objects.begin(), objects.end(), processEntry);
+     m_storage.setObjects(qMove(objects));
+-    Q_EMIT optimizationProgress(tr("Simple objects dereferenced and embedded: %1").arg(counter));
++    Q_EMIT optimizationProgress(tr("Simple objects dereferenced and embedded: %1").arg(counter.load()));
+ 
+     return false;
+ }
+@@ -213,7 +213,7 @@ bool PDFOptimizer::performRemoveNullObje
+ 
+     PDFExecutionPolicy::execute(PDFExecutionPolicy::Scope::Unknown, objects.begin(), objects.end(), processEntry);
+     m_storage.setObjects(qMove(objects));
+-    Q_EMIT optimizationProgress(tr("Null objects entries from dictionaries removed: %1").arg(counter));
++    Q_EMIT optimizationProgress(tr("Null objects entries from dictionaries removed: %1").arg(counter.load()));
+ 
+     return false;
+ }
+@@ -238,7 +238,7 @@ bool PDFOptimizer::performRemoveUnusedOb
+ 
+     PDFExecutionPolicy::execute(PDFExecutionPolicy::Scope::Unknown, range.begin(), range.end(), processEntry);
+     m_storage.setObjects(qMove(objects));
+-    Q_EMIT optimizationProgress(tr("Unused objects removed: %1").arg(counter));
++    Q_EMIT optimizationProgress(tr("Unused objects removed: %1").arg(counter.load()));
+ 
+     return counter > 0;
+ }
+@@ -311,7 +311,7 @@ bool PDFOptimizer::performMergeIdentical
+     }
+ 
+     m_storage.setObjects(qMove(objects));
+-    Q_EMIT optimizationProgress(tr("Identical objects merged: %1").arg(counter));
++    Q_EMIT optimizationProgress(tr("Identical objects merged: %1").arg(counter.load()));
+ 
+     return counter > 0;
+ }
+@@ -457,7 +457,7 @@ bool PDFOptimizer::performRecompressFlat
+ 
+     PDFExecutionPolicy::execute(PDFExecutionPolicy::Scope::Unknown, objects.begin(), objects.end(), processEntry);
+     m_storage.setObjects(qMove(objects));
+-    Q_EMIT optimizationProgress(tr("Bytes saved by recompressing stream: %1").arg(bytesSaved));
++    Q_EMIT optimizationProgress(tr("Bytes saved by recompressing stream: %1").arg(bytesSaved.load()));
+ 
+     return false;
+ }
