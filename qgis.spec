@@ -17,7 +17,6 @@ Patch2:		qgis-3.36.0-pdf4qt_private.patch
 Patch3:		qgis-3.42.0-compile_flags.patch
 Patch4:		qgis-3.38.3-tbb-linkage.patch
 Patch5:		qgis-3.42.1-compile.patch
-Source100:	%{name}.rpmlintrc
 BuildRequires:	bison
 BuildRequires:	cmake
 BuildRequires:	ninja
