@@ -1,0 +1,11 @@
+--- a/src/core/providers/gdal/qgsgdalprovider.cpp
++++ b/src/core/providers/gdal/qgsgdalprovider.cpp
+@@ -3169,7 +3169,7 @@
+       | Qgis::RasterBandStatistic::Range | Qgis::RasterBandStatistic::Mean
+       | Qgis::RasterBandStatistic::StdDev;
+ 
+-  QgsDebugMsgLevel( QStringLiteral( "theStats = %1 supportedStats = %2" ).arg( stats, 0, 2 ).arg( supportedStats, 0, 2 ), 2 );
++  QgsDebugMsgLevel( QStringLiteral( "theStats = %1 supportedStats = %2" ).arg( stats.toInt(), 0, 2 ).arg( supportedStats.toInt(), 0, 2 ), 2 );
+ 
+   if ( myRasterBandStats.extent != extent() ||
+        ( stats & ( ~supportedStats ) ) )

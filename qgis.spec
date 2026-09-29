@@ -20,6 +20,8 @@ Patch4:		qgis-3.38.3-tbb-linkage.patch
 Patch5:		qgis-3.44.15-openssl-x509-name.patch
 # OpenSSL 4 makes several X509/ASN.1 accessors const and hides ASN1_STRING members.
 Patch6:		qgis-3.44.15-openssl-opaque.patch
+# Qt 6 no longer treats QFlags as an integral QString::arg() argument.
+Patch7:		qgis-3.44.15-qflags-arg.patch
 BuildRequires:	bison
 BuildRequires:	cmake
 BuildRequires:	ninja
