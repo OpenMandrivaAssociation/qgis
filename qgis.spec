@@ -22,6 +22,7 @@ Patch5:		qgis-3.44.15-openssl-x509-name.patch
 Patch6:		qgis-3.44.15-openssl-opaque.patch
 # Qt 6 no longer treats QFlags as an integral QString::arg() argument.
 Patch7:		qgis-3.44.15-qflags-arg.patch
+Patch8:		qgis-3.44.15-qflags-arg2.patch
 BuildRequires:	bison
 BuildRequires:	cmake
 BuildRequires:	ninja
