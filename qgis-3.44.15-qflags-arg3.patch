@@ -1,0 +1,21 @@
+--- a/tests/bench/main.cpp
++++ b/tests/bench/main.cpp
+@@ -503,7 +503,7 @@
+         return 1;
+       }
+     }
+-    QgsDebugMsgLevel( QStringLiteral( "hints: %1" ).arg( hints ), 1 );
++    QgsDebugMsgLevel( QStringLiteral( "hints: %1" ).arg( hints.toInt() ), 1 );
+     qbench->setRenderHints( hints );
+   }
+ 
+--- a/src/providers/wms/qgswmsprovider.cpp
++++ b/src/providers/wms/qgswmsprovider.cpp
+@@ -2355,7 +2355,7 @@
+     capability |= Qgis::RasterInterfaceCapability::Prefetch;
+   }
+ 
+-  QgsDebugMsgLevel( QStringLiteral( "capability = %1" ).arg( capability ), 2 );
++  QgsDebugMsgLevel( QStringLiteral( "capability = %1" ).arg( capability.toInt() ), 2 );
+   return capability;
+ }
