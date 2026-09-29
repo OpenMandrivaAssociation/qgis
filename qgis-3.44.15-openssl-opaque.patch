@@ -1,0 +1,69 @@
+--- a/external/PDF4QT/Pdf4QtLibCore/sources/pdfcertificatestore.cpp
++++ b/external/PDF4QT/Pdf4QtLibCore/sources/pdfcertificatestore.cpp
+@@ -181,7 +181,7 @@
+ {
+     PDFCertificateInfo info;
+ 
+-    auto getStringFromASN1_STRING = [](ASN1_STRING* string) -> QString
++    auto getStringFromASN1_STRING = [](const ASN1_STRING* string) -> QString
+     {
+         QString result;
+ 
+@@ -205,7 +205,7 @@
+         QString result;
+ 
+         const int stringLocation = X509_NAME_get_index_by_NID(name, nid, -1);
+-        X509_NAME_ENTRY* entry = X509_NAME_get_entry(name, stringLocation);
++        const X509_NAME_ENTRY* entry = X509_NAME_get_entry(name, stringLocation);
+         return getStringFromASN1_STRING(X509_NAME_ENTRY_get_data(entry));
+     };
+ 
+@@ -284,7 +284,7 @@
+         info.setNotValidBefore(getDateTimeFromASN(notBeforeTime));
+         info.setNotValidAfter(getDateTimeFromASN(notAfterTime));
+ 
+-        X509_PUBKEY* publicKey = X509_get_X509_PUBKEY(certificate);
++        const X509_PUBKEY* publicKey = X509_get_X509_PUBKEY(certificate);
+         EVP_PKEY* evpKey = X509_PUBKEY_get(publicKey);
+         const int keyType = EVP_PKEY_type(EVP_PKEY_base_id(evpKey));
+ 
+--- a/external/PDF4QT/Pdf4QtLibCore/sources/pdfsignaturehandler.cpp
++++ b/external/PDF4QT/Pdf4QtLibCore/sources/pdfsignaturehandler.cpp
+@@ -1298,7 +1298,7 @@
+ 
+     int size = RSA_size(rsa);
+     std::vector<unsigned char> decryptedBuffer(size, 0);
+-    const int signatureSize = RSA_public_decrypt(encryptedString->length, encryptedString->data, decryptedBuffer.data(), rsa, RSA_PKCS1_PADDING);
++    const int signatureSize = RSA_public_decrypt(ASN1_STRING_length(encryptedString), ASN1_STRING_get0_data(encryptedString), decryptedBuffer.data(), rsa, RSA_PKCS1_PADDING);
+ 
+     if (signatureSize <= 0)
+     {
+@@ -1497,7 +1497,7 @@
+             OBJ_obj2txt(buffer.data(), int(buffer.size() - 1), OBJ_nid2obj(algorithmNID), 0);
+             result.addHashAlgorithm(QString::fromLatin1(buffer.data()));
+ 
+-            const int verifyValue = RSA_verify(algorithmNID, digest, digestLength, encryptedString->data, encryptedString->length, rsa.get());
++            const int verifyValue = RSA_verify(algorithmNID, digest, digestLength, ASN1_STRING_get0_data(encryptedString), ASN1_STRING_length(encryptedString), rsa.get());
+ 
+             if (verifyValue == 0)
+             {
+@@ -1564,8 +1564,8 @@
+     QString result;
+ 
+     const int stringLocation = X509_NAME_get_index_by_NID(name, nid, -1);
+-    X509_NAME_ENTRY* entry = X509_NAME_get_entry(name, stringLocation);
+-    return getStringFromASN1_STRING(X509_NAME_ENTRY_get_data(entry));
++    const X509_NAME_ENTRY* entry = X509_NAME_get_entry(name, stringLocation);
++    return getStringFromASN1_STRING(const_cast<ASN1_STRING*>(X509_NAME_ENTRY_get_data(entry)));
+ }
+ 
+ QString pdf::PDFPublicKeySignatureHandler::getStringFromASN1_STRING(ASN1_STRING* string)
+@@ -1647,7 +1647,7 @@
+ 
+     // Jakub Melka: We will get signed attribute from signer info.
+     PKCS7_SIGNER_INFO* signerInfo = sk_PKCS7_SIGNER_INFO_value(signerInfoStack, 0);
+-    ASN1_TYPE* attribute = PKCS7_get_signed_attribute(signerInfo, NID_pkcs9_signingTime);
++    const ASN1_TYPE* attribute = PKCS7_get_signed_attribute(signerInfo, NID_pkcs9_signingTime);
+ 
+     if (!attribute)
+     {

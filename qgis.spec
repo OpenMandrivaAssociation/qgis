@@ -18,6 +18,8 @@ Patch3:		qgis-3.42.0-compile_flags.patch
 Patch4:		qgis-3.38.3-tbb-linkage.patch
 # OpenSSL 3 X509_get_subject_name() returns const X509_NAME*.
 Patch5:		qgis-3.44.15-openssl-x509-name.patch
+# OpenSSL 4 makes several X509/ASN.1 accessors const and hides ASN1_STRING members.
+Patch6:		qgis-3.44.15-openssl-opaque.patch
 BuildRequires:	bison
 BuildRequires:	cmake
 BuildRequires:	ninja
