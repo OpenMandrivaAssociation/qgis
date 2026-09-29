@@ -1,0 +1,23 @@
+--- a/external/PDF4QT/Pdf4QtLibCore/sources/pdfcertificatemanager.cpp
++++ b/external/PDF4QT/Pdf4QtLibCore/sources/pdfcertificatemanager.cpp
+@@ -80,7 +80,8 @@
+             X509_gmtime_adj(X509_getm_notAfter(certificate.get()), info.validityInSeconds);
+ 
+             // Set name
+-            X509_NAME* name = X509_get_subject_name(certificate.get());
++            // OpenSSL 3 returns a const name. The certificate still owns a mutable copy.
++            X509_NAME* name = const_cast<X509_NAME*>(X509_get_subject_name(certificate.get()));
+ 
+             auto addString = [name](const char* identifier, QString string)
+             {
+--- a/external/PDF4QT/Pdf4QtLibCore/sources/pdfcertificatestore.cpp
++++ b/external/PDF4QT/Pdf4QtLibCore/sources/pdfcertificatestore.cpp
+@@ -232,7 +232,7 @@
+         return result;
+     };
+ 
+-    if (X509_NAME* subjectName = X509_get_subject_name(certificate))
++    if (X509_NAME* subjectName = const_cast<X509_NAME*>(X509_get_subject_name(certificate)))
+     {
+         // List of these properties are in RFC 5280, section 4.1.2.4, these attributes
+         // are standard and all implementations must be prepared to process them.
