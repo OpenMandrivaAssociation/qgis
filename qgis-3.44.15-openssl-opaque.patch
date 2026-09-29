@@ -43,7 +43,7 @@
              result.addHashAlgorithm(QString::fromLatin1(buffer.data()));
  
 -            const int verifyValue = RSA_verify(algorithmNID, digest, digestLength, encryptedString->data, encryptedString->length, rsa.get());
-+            const int verifyValue = RSA_verify(algorithmNID, digest, digestLength, ASN1_STRING_get0_data(encryptedString), ASN1_STRING_length(encryptedString), rsa.get());
++            const int verifyValue = RSA_verify(algorithmNID, digest, digestLength, ASN1_STRING_get0_data(encryptedString.get()), ASN1_STRING_length(encryptedString.get()), rsa.get());
  
              if (verifyValue == 0)
              {
