@@ -1,6 +1,6 @@
---- qgis-3.36.0/src/core/CMakeLists.txt.orig	2024-02-28 14:21:31.383381043 +0000
-+++ qgis-3.36.0/src/core/CMakeLists.txt	2024-02-28 14:22:22.301917071 +0000
-@@ -2361,7 +2361,7 @@
+--- a/src/core/CMakeLists.txt
++++ b/src/core/CMakeLists.txt
+@@ -2539,7 +2539,7 @@
  if (WITH_PDF4QT)
    target_include_directories(qgis_core PRIVATE
      ${CMAKE_SOURCE_DIR}/external/PDF4QT/Pdf4QtLibCore/sources)
@@ -9,8 +9,8 @@
  endif()
  
  if (WITH_EPT)
---- qgis-3.36.0/external/PDF4QT/Pdf4QtLibCore/CMakeLists.txt.orig	2024-02-28 14:23:22.005189339 +0000
-+++ qgis-3.36.0/external/PDF4QT/Pdf4QtLibCore/CMakeLists.txt	2024-02-28 14:23:37.892727695 +0000
+--- a/external/PDF4QT/Pdf4QtLibCore/CMakeLists.txt
++++ b/external/PDF4QT/Pdf4QtLibCore/CMakeLists.txt
 @@ -15,7 +15,7 @@
  #    You should have received a copy of the GNU Lesser General Public License
  #    along with PDF4QT.  If not, see <https://www.gnu.org/licenses/>.
@@ -20,7 +20,7 @@
      sources/pdfglobal.h
      sources/pdfaction.cpp
      sources/pdfaction.h
-@@ -150,43 +150,43 @@
+@@ -150,48 +150,48 @@
  
  include(GenerateExportHeader)
  
@@ -71,6 +71,11 @@
 -target_include_directories(Pdf4QtLibCore PUBLIC ${CMAKE_BINARY_DIR}/${INSTALL_INCLUDEDIR})
 +target_include_directories(qgisPdf4QtLibCore INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/sources)
 +target_include_directories(qgisPdf4QtLibCore PUBLIC ${CMAKE_BINARY_DIR}/${INSTALL_INCLUDEDIR})
+ 
+ # Workaround to suppress CLANG error on unused private field
+ set_source_files_properties(sources/pdfdocumentwriter.cpp PROPERTIES COMPILE_FLAGS "-Wno-unused-private-field")
+ # Workaround to suppress deprecation warning
+ set_source_files_properties(sources/pdfccittfaxdecoder.cpp PROPERTIES COMPILE_FLAGS "-Wno-deprecated-literal-operator")
  
 -set_target_properties(Pdf4QtLibCore PROPERTIES
 +set_target_properties(qgisPdf4QtLibCore PROPERTIES
