@@ -1,0 +1,14 @@
+--- a/src/test/qgstest.h
++++ b/src/test/qgstest.h
+@@ -49,6 +49,11 @@
+ #include "qgsunittypes.h"
+ #include "qgis_test.h"
+ 
++// Qt 6.12 removed this empty macro. QGIS 3.44 still expands it.
++#ifndef QTEST_DISABLE_KEYPAD_NAVIGATION
++#define QTEST_DISABLE_KEYPAD_NAVIGATION
++#endif
++
+ #define QGSTEST_MAIN( TestObject )             \
+   QT_BEGIN_NAMESPACE                           \
+   QT_END_NAMESPACE                             \

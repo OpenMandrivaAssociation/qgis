@@ -27,6 +27,8 @@ Patch9:		qgis-3.44.15-qflags-arg3.patch
 # SIP 6.17 rejects by-value std::unique_ptr results unless the mapped type
 # is /Movable/. The Qt 5 bindings already had that; the Qt 6 copy did not.
 Patch10:	qgis-3.44.15-sip-unique-ptr.patch
+# Qt 6.12 removed the empty QTEST_DISABLE_KEYPAD_NAVIGATION macro.
+Patch11:	qgis-3.44.15-qt6.12-keypad-nav.patch
 BuildRequires:	bison
 BuildRequires:	cmake
 BuildRequires:	ninja
