@@ -29,6 +29,8 @@ Patch9:		qgis-3.44.15-qflags-arg3.patch
 Patch10:	qgis-3.44.15-sip-unique-ptr.patch
 # Qt 6.12 removed the empty QTEST_DISABLE_KEYPAD_NAVIGATION macro.
 Patch11:	qgis-3.44.15-qt6.12-keypad-nav.patch
+# Our libspatialindex 2.1.0-2 restores comparator access to the data entry.
+Patch12:	qgis-3.44.15-spatialindex-2.1.patch
 BuildRequires:	bison
 BuildRequires:	cmake
 BuildRequires:	ninja
@@ -103,7 +105,8 @@ BuildRequires:	qmake-qt6
 BuildRequires:	cmake(qca-qt6)
 BuildRequires:	pkgconfig(Qt6Qwt6)
 BuildRequires:	pkgconfig(spatialite)
-BuildRequires:	spatialindex-devel
+# 2.1.0-1 breaks nearest-neighbour search. 2.1.0-2 restores it.
+BuildRequires:	spatialindex-devel >= 2.1.0-2
 BuildRequires:	pkgconfig(cfitsio)
 BuildRequires:	pkgconfig(draco)
 BuildRequires:	pkgconfig(expat)
